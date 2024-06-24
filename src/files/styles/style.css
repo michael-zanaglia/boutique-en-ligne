@@ -1,0 +1,163 @@
+*{
+    margin: 0;
+}
+body {
+    background-color: #D9F0F6;
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
+    height: 90px;
+    width: 100%;
+    background-color:  #C9D9F0;
+    justify-content: space-around;
+}
+
+.right-side {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 90px;
+}
+
+.logo {
+    margin-top: 5px;
+    width: 150px;
+    height: 150px;
+} 
+
+.taille64 {
+    width: 64px;
+    height: 64px;
+}
+
+.taille32 {
+    width: 32px;
+    height: 32px;
+}
+
+ul {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+nav, ul, li {
+    list-style: none;
+}
+
+h1 {
+    font-family: "Oswald", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-size: 2em;
+    font-weight: 400;
+}
+
+label, button {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+.marge {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 3px solid #A8B5E1;
+    padding-left: 10px;
+}
+
+.form-inscription {
+    width: 90vw;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    background-color: #C1D5F0;
+    padding: 10px;
+    margin-top: 15%;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input {
+    padding-left: 40px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+}
+
+.checkbox {
+    display: flex;
+    align-items: start;
+    gap: 5px;
+}
+
+.btn-vert {
+    margin-top: 50px;
+    background-color: #6DF9AD;
+    color: whitesmoke;
+    height: 50px;
+    width: 200px;
+    border-radius: 5px;
+    font-size: 1em;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.input-user {
+    position: absolute;
+    top: 9%;
+    width: 31px;
+    height: 31px;
+    background-color: #A8B5E1;
+    border-radius: 5px;
+    display: flex;
+}
+
+.input-lock {
+    position: absolute;
+    top: 25.2%;
+    width: 31px;
+    height: 31px;
+    background-color: #A8B5E1;
+    border-radius: 5px;
+    display: flex;
+}
+
+.input-mail {
+    position: absolute;
+    top: 41.6%;
+    width: 31px;
+    height: 31px;
+    background-color: #A8B5E1;
+    border-radius: 5px;
+    display: flex;
+}
+
+.input-addr {
+    position: absolute;
+    top: 57.8%;
+    width: 31px;
+    height: 31px;
+    background-color: #A8B5E1;
+    border-radius: 5px;
+    display: flex;
+}
+
+.inp {
+    width: 80vw;
+}
+
+
+
