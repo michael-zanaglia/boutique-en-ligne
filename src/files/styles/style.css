@@ -90,10 +90,19 @@ form{
 }
 
 input {
-    padding-left: 40px;
     height: 30px;
-    border-radius: 5px;
+    border-radius: 0 5px 5px 0;
     border: none;
+}
+.icon {
+    width: 32px;
+    height: 32px;
+    background-color: #A8B5E1;
+    border-radius: 5px 0 0 5px;
+    border-right: 1px solid #98a5cf;
+}
+.inp {
+    width: 80vw;
 }
 
 .checkbox {
@@ -103,7 +112,7 @@ input {
 }
 
 .btn-vert {
-    margin-top: 50px;
+    margin-top: 1px;
     background-color: #6DF9AD;
     color: whitesmoke;
     height: 50px;
@@ -115,48 +124,15 @@ input {
     transform: translateX(-50%);
 }
 
-.input-user {
-    position: absolute;
-    top: 9%;
-    width: 31px;
-    height: 31px;
-    background-color: #A8B5E1;
-    border-radius: 5px;
+.input-form {
     display: flex;
+    align-items: center;
 }
 
-.input-lock {
-    position: absolute;
-    top: 25.2%;
-    width: 31px;
-    height: 31px;
-    background-color: #A8B5E1;
-    border-radius: 5px;
-    display: flex;
-}
-
-.input-mail {
-    position: absolute;
-    top: 41.6%;
-    width: 31px;
-    height: 31px;
-    background-color: #A8B5E1;
-    border-radius: 5px;
-    display: flex;
-}
-
-.input-addr {
-    position: absolute;
-    top: 57.8%;
-    width: 31px;
-    height: 31px;
-    background-color: #A8B5E1;
-    border-radius: 5px;
-    display: flex;
-}
-
-.inp {
-    width: 80vw;
+a {
+    margin-top: 10px;
+    font-size: 0.8em;
+    text-align: end;
 }
 
 
