@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/signIn-Register.css">
-    <title>Inscription</title>
+    <title>Connexion</title>
 </head>
 <body>
     <header class='navigation'>
@@ -38,9 +38,9 @@
     </header>
     <main>
         <div class='marge'>
-            <h1>INSCRIPTION</h1>
+            <h1>CONNEXION</h1>
         </div>
-        <div class='form-inscription'>
+        <div class='form-connexion'>
             <form action="" method="post">
                 <label for="pseudo">Pseudo*</label>   
                 <div class='input-form'>
@@ -62,37 +62,9 @@
                     <input class='inp' type="password" name="password">  
                 </div>
 
-                <label for="mail">Adresse Mail*</label>
-                <div class='input-form'>
-                    <div class='icon'>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 taille32">
-                            <path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z" />
-                            <path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z" />
-                        </svg>
-                    </div>
-                    <input class='inp' type="text" name="mail">
-                </div>  
-
-                <label for="address">Adresse de livraison*</label>
-                <div class='input-form'>
-                    <div class='icon'>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 taille32">
-                            <path d="M19.006 3.705a.75.75 0 1 0-.512-1.41L6 6.838V3a.75.75 0 0 0-.75-.75h-1.5A.75.75 0 0 0 3 3v4.93l-1.006.365a.75.75 0 0 0 .512 1.41l16.5-6Z" />
-                            <path fill-rule="evenodd" d="M3.019 11.114 18 5.667v3.421l4.006 1.457a.75.75 0 1 1-.512 1.41l-.494-.18v8.475h.75a.75.75 0 0 1 0 1.5H2.25a.75.75 0 0 1 0-1.5H3v-9.129l.019-.007ZM18 20.25v-9.566l1.5.546v9.02H18Zm-9-6a.75.75 0 0 0-.75.75v4.5c0 .414.336.75.75.75h3a.75.75 0 0 0 .75-.75V15a.75.75 0 0 0-.75-.75H9Z" clip-rule="evenodd" />
-                        </svg>
-                    </div>
-                    
-                    <input class='inp' type="text" name="address">
-                </div> 
-
-                <div class='checkbox'>
-                    <input type="checkbox" name='check'>
-                    <label for="check">Je valide avoir pris connaissance des conditions d'utilisations.</label> 
-                </div>
-
-                <button class='btn-vert' type="submit">S'inscrire</button>
+                <button class='btn-vert' type="submit">Se Connecter</button>
             </form>
-            <a href='connexion.php'>Vous etes deja inscrit ?</a>
+            <a href='inscription.php'>Vous n'etes pas incrit ?</a>
         </div>        
     </main>
     
