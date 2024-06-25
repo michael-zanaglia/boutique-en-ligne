@@ -64,7 +64,7 @@
 
                 <button class='btn-vert' type="submit">Se Connecter</button>
             </form>
-            <a href='inscription.php'>Vous n'etes pas incrit ?</a>
+            <a href='inscription.html'>Vous n'etes pas incrit ?</a>
         </div>        
     </main>
     
