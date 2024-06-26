@@ -1,4 +1,6 @@
 <?php
+    require "classes/database.php";
+
     function checkPassword($password){
         if (strlen($password) < 8){
             return false;
@@ -17,12 +19,13 @@
         }
         return true;
     } 
+
     if($_SERVER["REQUEST_METHOD"] == 'POST'){
         $pseudo = htmlspecialchars($_POST['pseudo']);
         $pwd = htmlspecialchars($_POST['password']);
         $mail = htmlspecialchars($_POST['mail']);
         $addr = htmlspecialchars($_POST['address']);
-        $msg = "une Erreur est survenue (inscription.php)";
+        $msg = "Une Erreur est survenue (inscription.php).";
         $success = 0;
 
         if (strlen($pseudo) <= 10){
@@ -37,6 +40,12 @@
         } else {
             $msg = 'Le pseudo est trop long.';
         }
+        if ($success == 1){
+            $database = new DataBase();
+            $res = $database -> insertNewUser($pseudo, $pwd, $mail, $addr);
+            $msg = $res;
+        }
+
         $data = array(
             "success" => $success,
             "msg" => $msg,
@@ -45,5 +54,6 @@
             "mail" => $mail,
             "addr" => $addr
         );
+
         echo json_encode($data);
     };
