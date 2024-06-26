@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const formData = new FormData(form); 
         const res = await fetchToPhp(formData, "connexion.php");
         if(res['success']){
-            window.location.href='redirection.html';
+            window.location.href='acceuil.php';
         } else {
             pElement.innerText="Connexion Impossible. :(";
             divConnexion.appendChild(pElement);

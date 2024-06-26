@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function(){
     let seconds = 5;
     const idInterval = setInterval(()=> {
         seconds--;
-        secDisplay.innerHTML = "You will be redirected in " + seconds + " or you can click <a href='connexion.php'>here</a> !";
+        secDisplay.innerHTML = "You will be redirected in " + seconds + " or you can click <a href='connexion.html'>here</a> !";
 
         if (seconds <= 0){
             clearInterval(idInterval);

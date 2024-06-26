@@ -50,7 +50,7 @@ input {
     height: 32px;
     background-color: #A8B5E1;
     border-radius: 0 5px 5px 0;
-    border-right: 1px solid #98a5cf;
+    border-left: 1px solid #98a5cf;
 }
 .inp {
     width: 80vw;
@@ -101,4 +101,10 @@ a {
     margin-top: 10px;
     font-size: 0.8em;
     text-align: end;
+}
+
+@media only screen and (min-width: 812px){
+    .form-inscription, .form-connexion {
+        top: 80%; 
+    }
 }
