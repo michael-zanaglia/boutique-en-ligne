@@ -44,8 +44,20 @@ input {
     border-radius: 5px 0 0 5px;
     border-right: 1px solid #98a5cf;
 }
+.icon-eye {
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    background-color: #A8B5E1;
+    border-radius: 0 5px 5px 0;
+    border-right: 1px solid #98a5cf;
+}
 .inp {
     width: 80vw;
+}
+.inp-co{
+    width: 80vw;
+    border-radius: 0px;
 }
 
 .checkbox {

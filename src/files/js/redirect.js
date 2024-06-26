@@ -7,8 +7,9 @@ document.addEventListener('DOMContentLoaded', function(){
 
         if (seconds <= 0){
             clearInterval(idInterval);
-            window.location.href = 'connexion.php';
+            window.location.href = 'connexion.html';
         }
+
     }, 1000)
     
 });
