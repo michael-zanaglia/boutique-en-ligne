@@ -70,6 +70,22 @@ label, button {
     padding-left: 10px;
 }
 
+.side-marge{
+    border-left:  3px solid #A8B5E1;
+    padding-left: 10px;
+    margin-left: 5px;
+}
+
+.btn-vert {
+    margin-top: 1px;
+    background-color: #6DF9AD;
+    color: whitesmoke;
+    height: 50px;
+    width: 200px;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
 @media only screen and (min-width: 812px){
     .marge {
         top: 30%; 

@@ -19,6 +19,30 @@
             $req -> execute([$pseudo]);
             return $req->fetch(PDO::FETCH_ASSOC);
         }
+
+        public function getInformationUser(){
+            $req = $this -> _db -> prepare("SELECT * FROM user WHERE pseudo = ?");
+            $req -> execute([$this -> getPseudo()]);
+            return $req -> fetch(PDO::FETCH_ASSOC);
+        }
+
+        public function UpdateUser(int $id, string $pseudo, string $fullName, $birth, string $addr, string $mail){
+            if($birth) {
+                $req = $this -> _db -> prepare("UPDATE user SET pseudo = ?, `nom & prenom` = ?, naissance = ?, address = ?, mail = ? WHERE id = ?");
+                $req -> execute([$pseudo, $fullName, $birth, $addr, $mail, $id]);
+            } else {
+                $req = $this -> _db -> prepare("UPDATE user SET pseudo = ?, `nom & prenom` = ?, address = ?, mail = ? WHERE id = ?");
+                $req -> execute([$pseudo, $fullName, $addr, $mail, $id]);
+            }
+            if($req){
+                return true;
+            } else {
+                return false;
+            }
+             
+            
+            
+        }
     }
 
 
