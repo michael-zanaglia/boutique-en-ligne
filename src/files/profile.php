@@ -97,6 +97,14 @@
         </form>
         <p><?php echo $success ? "Profile mis à jour :) !": "" ?></p>
     </div>
+    <div class='centrer-relative case order'>
+        <img class='taille200' src="../asset/boxicon.png" alt="order-img">
+        <h2>MES DERNIERES COMMANDES</h2>
+    </div>
+    <div class='centrer-relative case mdp'>
+        <h2>CHANGER LE MOT DE PASSE</h2>
+    </div>
+    <button class='centrer-relative btn-rouge'>Déconnexion</button>
     <script src='js/profile.js'></script>
 </body>
 </html>

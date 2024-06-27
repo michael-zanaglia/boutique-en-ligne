@@ -37,6 +37,11 @@ body {
     height: 32px;
 }
 
+.taille200 {
+    width: 200px;
+    height: 200px;
+}
+
 ul {
     display: flex;
     justify-content: space-between;
@@ -79,6 +84,16 @@ label, button {
 .btn-vert {
     margin-top: 1px;
     background-color: #6DF9AD;
+    color: whitesmoke;
+    height: 50px;
+    width: 200px;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.btn-rouge {
+    margin-top: 1px;
+    background-color: #EB5858;
     color: whitesmoke;
     height: 50px;
     width: 200px;

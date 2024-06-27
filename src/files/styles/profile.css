@@ -45,14 +45,14 @@
     
 }
 
-h3 {
+h2, h3 {
     font-family: "Oswald", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
     font-weight: 400;
 }
 
-h1 {
+h1, h2 {
     text-align: center;
 }
 
@@ -60,3 +60,26 @@ h1 {
     align-self: flex-start;
 }
 
+.case {
+    margin-top: 53px;
+    width: 297px;
+    height: 297px;
+    background-color: #A8B5E1;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.centrer-relative {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.btn-rouge {
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
