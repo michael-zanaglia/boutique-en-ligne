@@ -49,7 +49,9 @@
     <h1>Welcome <?php echo isset($_SESSION['user'])? $_SESSION['user'] : $user -> getPseudo(); ?></h1>
     <div class='page'>
         <div class='slider'>
-            test
+            <img class='slider-item' src="../asset/test1.png" alt="1">
+            <img class='slider-item' src="../asset/test2.png" alt="1">
+            <img class='slider-item' src="../asset/test3.png" alt="1">
         </div>
 
         <div class='side-marge'>
