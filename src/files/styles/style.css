@@ -73,11 +73,11 @@ label, button {
 
 .marge {
     position: absolute;
-    top: 15%;
     left: 50%;
     transform: translateX(-50%);
     border-left: 3px solid #A8B5E1;
     padding-left: 10px;
+    width: 50%;
 }
 
 .side-marge{

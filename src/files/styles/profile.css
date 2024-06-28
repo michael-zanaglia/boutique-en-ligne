@@ -6,8 +6,26 @@
     gap: 10px;
 }
 
+#change-pwdForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
 #change-userForm label {
     align-self: flex-start;
+}
+
+#change-pwdForm label {
+    align-self: flex-start;
+}
+
+#cadre-form-pwd {
+    margin-top: 35%;
+    background-color: #C1D5F0;
+    padding: 15px;
 }
 
 #cadre-form {

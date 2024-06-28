@@ -9,4 +9,8 @@ document.addEventListener("DOMContentLoaded", function(){
     //        })
     //    })
     //})
+    const caseChangePwd = document.querySelector('.mdp');
+    caseChangePwd.addEventListener('click', ()=>{
+        window.location.href = "changePwd.php";
+    })
 })
