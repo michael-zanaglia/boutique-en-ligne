@@ -1,6 +1,5 @@
 <?php
     require "classes/database.php";
-    require "classes/checkPassword.php";
 
     if($_SERVER["REQUEST_METHOD"] == 'POST'){
         $pseudo = htmlspecialchars($_POST['pseudo']);
@@ -11,7 +10,8 @@
         $success = 0;
 
         if (strlen($pseudo) <= 10){
-            $validPwd = checkPassword($pwd);
+            $database = new DataBase();
+            $validPwd = $database -> checkPassword($pwd);
             if ($validPwd){
                 $pwd = htmlspecialchars(password_hash($_POST['password'], PASSWORD_DEFAULT));
                 $success = 1;
@@ -23,7 +23,6 @@
             $msg = 'Le pseudo est trop long.';
         }
         if ($success == 1){
-            $database = new DataBase();
             $res = $database -> insertNewUser($pseudo, $pwd, $mail, $addr);
             $msg = $res;
         }
