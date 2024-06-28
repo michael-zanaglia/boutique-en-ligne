@@ -26,7 +26,7 @@
             return $req -> fetch(PDO::FETCH_ASSOC);
         }
 
-        public function UpdateUser(int $id, string $pseudo, string $fullName, $birth, string $addr, string $mail){
+        public function UpdateUser(int $id, string $pseudo, string $fullName, $birth, string $addr, string $mail) {
             if($birth) {
                 $req = $this -> _db -> prepare("UPDATE user SET pseudo = ?, `nom & prenom` = ?, naissance = ?, address = ?, mail = ? WHERE id = ?");
                 $req -> execute([$pseudo, $fullName, $birth, $addr, $mail, $id]);
@@ -38,10 +38,14 @@
                 return true;
             } else {
                 return false;
+            } 
+        }
+
+        public function logoutUser(){
+            if(isset($_POST['deco'])){
+                session_destroy();
+                header("Location: connexion.html");
             }
-             
-            
-            
         }
     }
 

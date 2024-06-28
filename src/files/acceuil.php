@@ -1,8 +1,12 @@
 <?php
+    require "classes/user.php";
     session_start();
-    //if (isset($_SESSION['user'])){
-    //    header('Location: error.php')
-    //}
+    $user = new User();
+    if (isset($_SESSION['user'])){
+        $user = new User($_SESSION['user']);
+    } else {
+        $user = new User();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,7 +45,7 @@
             </ul>
         </nav>
     </header>
-    <h1>Welcome <?php echo isset($_SESSION['user'])? $_SESSION['user'] : "-" ?></h1>
+    <h1>Welcome <?php echo isset($_SESSION['user'])? $_SESSION['user'] : $user -> getPseudo(); ?></h1>
     
 </body>
 </html>

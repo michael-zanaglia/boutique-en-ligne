@@ -5,18 +5,25 @@
 
     if(isset($_SESSION['user'])){
         $user = new User($_SESSION['user']);
+        // Valeurs pour mes inputs
         $res = $user -> getInformationUser();
         $id = $res['id'];
         $fullName = $res["nom & prenom"];
         $birth = $res["naissance"];
         $addr = $res["address"];
         $mail = $res["mail"];
-        if(!empty($_POST)){
+        // -----------------------
+        if(!empty($_POST['pseudo'])){
             $success = $user -> UpdateUser($id, $_POST['pseudo'], $_POST['fullName'], $_POST['birth'], $_POST['addr'], $_POST['mail']);
         }
     } else {
-        header("Location: error.php"); 
+        header("Location: connexion.html"); 
     }
+
+    $user -> logoutUser();
+
+    
+    
 
     
 ?>
@@ -102,9 +109,29 @@
         <h2>MES DERNIERES COMMANDES</h2>
     </div>
     <div class='centrer-relative case mdp'>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 taille200">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 1 1 9 0v3.75M3.75 21.75h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H3.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+        </svg>
         <h2>CHANGER LE MOT DE PASSE</h2>
     </div>
-    <button class='centrer-relative btn-rouge'>Déconnexion</button>
+    <form method="post"><button class='centrer-relative btn-rouge' type='submit' name='deco'>Déconnexion</button></form>
+    <footer>
+        <div class='footer1'>
+            <p>Nous suivre !</p>
+            <div>
+                <a href="#"><img class='Xicon' src="../asset/Xicon.png" alt="X-icon"></a>
+                <a href="#"><img class='taille42' src="../asset/Instaicon.png" alt="instagram-icon"></a>
+            </div>
+        </div>
+        <div class='footer2'>
+            <button><svg class="taille32" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" /></svg>Nous contacter</button>
+            <button><img class="taille32" src="../asset/handshake.png" alt="handshake-icon">Nous rejoindre</button>
+        </div>
+        <div class='footer3'>
+            <a href="#"><p>Qui sommes-nous ?</p></a>
+            <p class='copyright'>© 2024 FOG</p>
+        </div>
+    </footer>
     <script src='js/profile.js'></script>
 </body>
 </html>

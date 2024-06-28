@@ -71,6 +71,7 @@ h1, h2 {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    box-shadow: 0px 0px 20px #3857bd;
 }
 
 .centrer-relative {
@@ -82,4 +83,7 @@ h1, h2 {
 .btn-rouge {
     margin-top: 40px;
     margin-bottom: 10px;
+    cursor: pointer;
 }
+
+
