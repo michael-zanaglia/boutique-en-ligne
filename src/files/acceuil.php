@@ -15,6 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/home.css">
     <title>Acceuil</title>
 </head>
 <body>
@@ -46,6 +47,38 @@
         </nav>
     </header>
     <h1>Welcome <?php echo isset($_SESSION['user'])? $_SESSION['user'] : $user -> getPseudo(); ?></h1>
+    <div class='page'>
+        <div class='slider'>
+            test
+        </div>
+
+        <div class='side-marge'>
+            <h2>PROCHAINEMENT...</h2>
+        </div>
+
+        <div class='caroussel'>
+            <div class="caroussel-item">t</div>
+            <div class="caroussel-item">e</div>
+            <div class="caroussel-item">e</div>
+            <div class="caroussel-item">s</div>
+        </div>  
+
+        <div class='side-marge'>
+            <h2>BEST-SELLER</h2>
+        </div>
+
+        <div class="podium">
+            <div class="pod deux">
+                2
+            </div>
+            <div class="pod un">
+                1
+            </div>
+            <div class="pod trois">
+                3
+            </div>
+        </div>
+    </div>
     
 </body>
 </html>
