@@ -1,0 +1,40 @@
+.options {
+    display: flex;
+    flex-direction: column;
+    width: 90vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.opt-items{
+    border-top: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+}
+
+h3{
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: 350;
+}
+
+table {
+    border-collapse: collapse;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 90vw;
+}
+th, td {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+
+@media only screen and (min-width: 812px){
+    .options {
+        top: 80%; 
+    }
+}

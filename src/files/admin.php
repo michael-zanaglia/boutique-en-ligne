@@ -1,13 +1,13 @@
 <?php
-    require "classes/user.php";
+    require "classes/product.php";
+    $product = new Product(); 
     session_start();
-    $user = new User();
-    if (isset($_SESSION['user'])){
-        $user = new User($_SESSION['user']);
-    } else {
-        $user = new User();
+    if((isset($_SESSION['user']) || !isset($_SESSION['user'])) && $_SESSION['user'] !== 'root'){
+        header("Location: error.php");
     }
+    $res = $product -> getAllProduct();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,8 +15,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="styles/home.css">
-    <title>Acceuil</title>
+    <link rel="stylesheet" href="styles/admin.css">
+    <title>Admin</title>
 </head>
 <body>
     <header class='navigation'>
@@ -53,67 +53,73 @@
             </ul>
         </nav>
     </header>
-    <h1>Welcome <?php echo isset($_SESSION['user'])? $_SESSION['user'] : $user -> getPseudo(); ?></h1>
-    <div class='page'>
-        <div>
-            <div class='diapo'></div>
-            <div class='slider'>
-                <img class='slider-item' src="../asset/test1.png" alt="1">
-                <img class='slider-item' src="../asset/test2.png" alt="1">
-                <img class='slider-item' src="../asset/test3.png" alt="1">
-            </div>
-        </div>
-            
-
-        <div class='side-marge'>
-            <h2>PROCHAINEMENT...</h2>
-        </div>
-
-        <div class='caroussel'>
-            <div class="caroussel-item">t</div>
-            <div class="caroussel-item">e</div>
-            <div class="caroussel-item">e</div>
-            <div class="caroussel-item">s</div>
-            <div class="caroussel-item">s</div>
-            <div class="caroussel-item">s</div>
-            <div class="caroussel-item">s</div>
-            <div class="caroussel-item">s</div>
-        </div>  
-
-        <div class='side-marge'>
-            <h2>BEST-SELLER</h2>
-        </div>
-
-        <div class="podium">
-            <div class="pod deux">
-                2
-            </div>
-            <div class="pod un">
-                1
-            </div>
-            <div class="pod trois">
-                3
-            </div>
-        </div>
+    <div class="marge">
+        <h1>Admin</h1>
     </div>
-    <footer>
-        <div class='footer1'>
-            <p>Nous suivre !</p>
-            <div>
-                <a href="#"><img class='Xicon' src="../asset/Xicon.png" alt="X-icon"></a>
-                <a href="#"><img class='taille42' src="../asset/Instaicon.png" alt="instagram-icon"></a>
+
+    <div class='options'>
+        <div>
+            <div class='opt-items'>
+                <h3>Home Page</h3>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 taille32">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+            </div>
+            <div class='tableHome'></div>
+        </div>
+        
+        <div>
+            <div class='opt-items'>
+                <h3>Product Page</h3> 
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 taille32">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+            </div> 
+            <div class='tableProduct'>
+                <form action="" method="post">
+                    <h3>Produits</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Description</th>
+                                <th>Stock</th>
+                                <th>Prix</th>
+                                <th>State</th>
+                                <th>Image</th>
+                                <th>Categorie</th>
+                                <th>Update</th>
+                                <th>Delete</th>
+                            </tr> 
+                        </thead>
+                        <tbody>
+                            <?php
+                                foreach($res as $row){
+                                    echo "<tr>
+                                        <td>".$row['name']."</td>
+                                        <td>".$row['description']."</td>
+                                        <td>".$row['stock']."</td>
+                                        <td>".$row['price']."</td>
+                                        <td>".$row['state']."</td>
+                                        <td>".$row['image']."</td>
+                                        <td>".$row['category_name']."</td>
+                                        <td><button class='update' name='".$row['id']."'>UPT</button></td>
+                                        <td><button class='del' name='".$row['id']."'>DEL</button></td>
+                                    </tr>";
+                                    
+                                }
+                            ?>
+                        </tbody>
+                    </table>
+
+                </form>
+                
             </div>
         </div>
-        <div class='footer2'>
-            <button><svg class="taille32" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" /></svg>Nous contacter</button>
-            <button><img class="taille32" src="../asset/handshake.png" alt="handshake-icon">Nous rejoindre</button>
-        </div>
-        <div class='footer3'>
-            <a href="#"><p>Qui sommes-nous ?</p></a>
-            <p class='copyright'>© 2024 FOG</p>
-        </div>
-    </footer>
-    <script src='js/home.js'></script>
+        
+    </div>
+    
+    
+    
 </body>
-
 </html>
