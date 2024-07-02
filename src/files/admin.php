@@ -6,6 +6,11 @@
         header("Location: error.php");
     }
     $res = $product -> getAllProduct();
+    $categories = $product -> getAllCategory();
+
+    if((isset($_POST['upt'])) || (isset($_POST['del']))){
+        var_dump($_POST);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -76,7 +81,7 @@
                 </svg>
             </div> 
             <div class='tableProduct'>
-                <form action="" method="post">
+                <form action="" method="post" id="tableForm">
                     <h3>Produits</h3>
                     <table>
                         <thead>
@@ -96,17 +101,24 @@
                             <?php
                                 foreach($res as $row){
                                     echo "<tr>
-                                        <td>".$row['name']."</td>
-                                        <td>".$row['description']."</td>
-                                        <td>".$row['stock']."</td>
-                                        <td>".$row['price']."</td>
-                                        <td>".$row['state']."</td>
-                                        <td>".$row['image']."</td>
-                                        <td>".$row['category_name']."</td>
-                                        <td><button class='update' name='".$row['id']."'>UPT</button></td>
-                                        <td><button class='del' name='".$row['id']."'>DEL</button></td>
+                                        <td onclick='changeToInput(this)'>".$row['name']."<input type='text' name='name'></td>
+                                        <td onclick='changeToInput(this)'>".$row['description']."</td>
+                                        <td onclick='changeToInput(this)'>".$row['stock']."</td>
+                                        <td onclick='changeToInput(this)'>".$row['price']."</td>
+                                        <td onclick='changeToInput(this)'>".$row['state']."</td>
+                                        <td onclick='changeToInput(this)'>".$row['image']."</td>
+                                        <td><select>";
+                                        foreach($categories as $cat) {
+                                            if($cat['category_name'] == $row['category_name']) {
+                                                echo "<option selected>".$row['category_name']."</option>";
+                                            } else {
+                                                 echo "<option>".$cat['category_name']."</option>";
+                                            }
+                                        }
+                                        echo "</select></td>
+                                        <td><button type='submit' onclick='goToDataBase(this)' class='update' name='upt' value='".$row['id']."'>UPT</button></td>
+                                        <td><button type='submit' onclick='goToDataBase(this)' class='del' name='del' value='".$row['id']."'>DEL</button></td>
                                     </tr>";
-                                    
                                 }
                             ?>
                         </tbody>
@@ -118,8 +130,6 @@
         </div>
         
     </div>
-    
-    
-    
+    <script src='js/admin.js'></script>
 </body>
 </html>

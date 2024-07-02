@@ -13,6 +13,11 @@
             //var_dump($results);
             return $results;   
         }
+
+        public function getAllCategory(){
+            $req = $this -> _db -> query("SELECT category_name FROM category");
+            return $req->fetchAll(PDO::FETCH_ASSOC);
+        }
     }
     $exportedProduct = var_export(new Product(), true);
 ?>
