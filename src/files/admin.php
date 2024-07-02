@@ -6,10 +6,19 @@
         header("Location: error.php");
     }
     $res = $product -> getAllProduct();
+    //echo var_dump($res);
     $categories = $product -> getAllCategory();
 
-    if((isset($_POST['upt'])) || (isset($_POST['del']))){
-        var_dump($_POST);
+    if((isset($_POST['upt']))){
+        $product -> updateProduct($_POST);
+    }
+
+    if((isset($_POST['del']))){
+        $product -> deleteProduct($_POST);
+    }
+
+    if((isset($_POST['add']))){
+        $product -> addProduct($_POST);
     }
 ?>
 
@@ -81,8 +90,52 @@
                 </svg>
             </div> 
             <div class='tableProduct'>
-                <form action="" method="post" id="tableForm">
-                    <h3>Produits</h3>
+        
+                <h3>Produits</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Description</th>
+                            <th>Stock</th>
+                            <th>Prix</th>
+                            <th>State</th>
+                            <th>Image</th>
+                            <th>Categorie</th>
+                            <th>Update</th>
+                            <th>Delete</th>
+                        </tr> 
+                    </thead>
+                    <tbody>
+                        <?php
+                            foreach($res as $row){
+                                echo "<form method='post'>
+                                        <tr>
+                                            <td><input name='name' autocomplete='off' class='tableInput' value='".$row['name']."'</td>
+                                            <td><input name='description' autocomplete='off' class='tableInput' value='".$row['description']."'</td>
+                                            <td><input name='stock' autocomplete='off' class='tableInput' value='".$row['stock']."'</td>
+                                            <td><input name='price' autocomplete='off' class='tableInput' value='".$row['price']."'</td>
+                                            <td><input name='state' autocomplete='off' class='tableInput' value='".$row['state']."'</td>
+                                            <td><input name='image' autocomplete='off' class='tableInput' value='".$row['image']."'</td>
+                                            <td><select name='category'>";
+                                            foreach($categories as $cat) {
+                                                if($cat['category_name'] == $row['category_name']) {
+                                                    echo "<option selected>".$row['category_name']."</option>";
+                                                } else {
+                                                    echo "<option>".$cat['category_name']."</option>";
+                                                }
+                                            }
+                                            echo "</select></td>
+                                            <td><button type='submit' class='update' name='upt' value='".$row['id']."'>UPT</button></td>
+                                            <td><button type='submit' class='del' name='del' value='".$row['id']."'>DEL</button></td>
+                                        </tr>
+                                </form>";
+                            }
+                        ?>
+                    </tbody>
+                </table>
+                <div>
+                    <h3>Ajouter un produit</h3>
                     <table>
                         <thead>
                             <tr>
@@ -93,38 +146,33 @@
                                 <th>State</th>
                                 <th>Image</th>
                                 <th>Categorie</th>
-                                <th>Update</th>
-                                <th>Delete</th>
+                                <th>Add</th>
                             </tr> 
                         </thead>
                         <tbody>
-                            <?php
-                                foreach($res as $row){
-                                    echo "<tr>
-                                        <td onclick='changeToInput(this)'>".$row['name']."<input type='text' name='name'></td>
-                                        <td onclick='changeToInput(this)'>".$row['description']."</td>
-                                        <td onclick='changeToInput(this)'>".$row['stock']."</td>
-                                        <td onclick='changeToInput(this)'>".$row['price']."</td>
-                                        <td onclick='changeToInput(this)'>".$row['state']."</td>
-                                        <td onclick='changeToInput(this)'>".$row['image']."</td>
-                                        <td><select>";
-                                        foreach($categories as $cat) {
-                                            if($cat['category_name'] == $row['category_name']) {
-                                                echo "<option selected>".$row['category_name']."</option>";
-                                            } else {
-                                                 echo "<option>".$cat['category_name']."</option>";
-                                            }
-                                        }
-                                        echo "</select></td>
-                                        <td><button type='submit' onclick='goToDataBase(this)' class='update' name='upt' value='".$row['id']."'>UPT</button></td>
-                                        <td><button type='submit' onclick='goToDataBase(this)' class='del' name='del' value='".$row['id']."'>DEL</button></td>
-                                    </tr>";
-                                }
-                            ?>
+                            <form action="admin.php" method="post">
+                                <tr>
+                                    <td><input class='tableInput' type="text" name='add-name'></td>
+                                    <td><input class='tableInput'type="text" name='add-desc'></td>
+                                    <td><input class='tableInput'type="text" name='add-stock'></td>
+                                    <td><input class='tableInput'type="text" name='add-price'></td>
+                                    <td><input class='tableInput'type="text" name='add-state'></td>
+                                    <td><input class='tableInput'type="text" name='add-img'></td>
+                                    <td>
+                                        <select name="add-category" id="">
+                                            <?php 
+                                                foreach($categories as $cat) {
+                                                    echo "<option>".htmlspecialchars($cat['category_name'])."</option>";
+                                                }
+                                            ?>  
+                                        </select>
+                                    </td>
+                                    <td><button name='add' type='submit'>ADD</button></td>
+                                </tr>
+                            </form>
                         </tbody>
                     </table>
-
-                </form>
+                </div>
                 
             </div>
         </div>

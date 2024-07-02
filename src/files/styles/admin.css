@@ -32,6 +32,11 @@ th, td {
     padding: 5px;
 }
 
+.tableInput {
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
 
 @media only screen and (min-width: 812px){
     .options {
