@@ -1,5 +1,10 @@
 <?php
     require "classes/user.php";
+    require "classes/product.php";
+    $product = new Product();
+    $myImgs = $product -> getNewItems();
+    //var_dump($myImgs);
+    //$nbrArray = count($myImgs);
     session_start();
     $user = new User();
     if (isset($_SESSION['user'])){
@@ -58,9 +63,11 @@
         <div>
             <div class='diapo'></div>
             <div class='slider'>
-                <img class='slider-item' src="../asset/test1.png" alt="1">
-                <img class='slider-item' src="../asset/test2.png" alt="1">
-                <img class='slider-item' src="../asset/test3.png" alt="1">
+                <?php
+                    foreach ($myImgs as $myImg){
+                        echo "<img class='slider-item' src='data:image;base64,".$myImg['image']."' alt='new-img'>";
+                    }
+                ?>
             </div>
         </div>
             

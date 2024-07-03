@@ -1,4 +1,5 @@
 <?php
+//".$row['image']."
     require "classes/product.php";
     $product = new Product(); 
     session_start();
@@ -10,7 +11,8 @@
     $categories = $product -> getAllCategory();
 
     if((isset($_POST['upt']))){
-        $product -> updateProduct($_POST);
+        //var_dump($_FILES['image']);
+        $product -> updateProduct($_POST, $_FILES['image']['tmp_name']);
     }
 
     if((isset($_POST['del']))){
@@ -18,7 +20,8 @@
     }
 
     if((isset($_POST['add']))){
-        $product -> addProduct($_POST);
+        var_dump($_FILES);
+        $product -> addProduct($_POST, $_FILES['add-img']['tmp_name']);
     }
 ?>
 
@@ -67,9 +70,9 @@
             </ul>
         </nav>
     </header>
-    <div class="marge">
-        <h1>Admin</h1>
-    </div>
+    
+    <div class='margeAd'><div></div><h1>Admin</h1></div>
+    
 
     <div class='options'>
         <div>
@@ -85,8 +88,8 @@
         <div>
             <div class='opt-items'>
                 <h3>Product Page</h3> 
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 taille32">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" id="produits" class="size-6 taille32">
+                    <path class='pathProd' stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>
             </div> 
             <div class='tableProduct'>
@@ -109,14 +112,14 @@
                     <tbody>
                         <?php
                             foreach($res as $row){
-                                echo "<form method='post'>
+                                echo "<form method='post' enctype='multipart/form-data'>
                                         <tr>
-                                            <td><input name='name' autocomplete='off' class='tableInput' value='".$row['name']."'</td>
-                                            <td><input name='description' autocomplete='off' class='tableInput' value='".$row['description']."'</td>
+                                            <td><input name='name' autocomplete='on' class='tableInput' value='".$row['name']."'</td>
+                                            <td><input name='description' autocomplete='on' class='tableInput' value='".$row['description']."'</td>
                                             <td><input name='stock' autocomplete='off' class='tableInput' value='".$row['stock']."'</td>
                                             <td><input name='price' autocomplete='off' class='tableInput' value='".$row['price']."'</td>
                                             <td><input name='state' autocomplete='off' class='tableInput' value='".$row['state']."'</td>
-                                            <td><input name='image' autocomplete='off' class='tableInput' value='".$row['image']."'</td>
+                                            <td><input name='image' type='file' autocomplete='off' class='tableInput'></td>
                                             <td><select name='category'>";
                                             foreach($categories as $cat) {
                                                 if($cat['category_name'] == $row['category_name']) {
@@ -136,7 +139,7 @@
                 </table>
                 <div>
                     <h3>Ajouter un produit</h3>
-                    <table>
+                    <table id='add-table'>
                         <thead>
                             <tr>
                                 <th>Nom</th>
@@ -150,14 +153,14 @@
                             </tr> 
                         </thead>
                         <tbody>
-                            <form action="admin.php" method="post">
+                            <form action="admin.php" method="post" enctype="multipart/form-data">
                                 <tr>
-                                    <td><input class='tableInput' type="text" name='add-name'></td>
-                                    <td><input class='tableInput'type="text" name='add-desc'></td>
-                                    <td><input class='tableInput'type="text" name='add-stock'></td>
-                                    <td><input class='tableInput'type="text" name='add-price'></td>
+                                    <td><input class='tableInput' type="text" name='add-name' required></td>
+                                    <td><input class='tableInput'type="text" name='add-desc' required></td>
+                                    <td><input class='tableInput'type="text" name='add-stock' required></td>
+                                    <td><input class='tableInput'type="text" name='add-price' required></td>
                                     <td><input class='tableInput'type="text" name='add-state'></td>
-                                    <td><input class='tableInput'type="text" name='add-img'></td>
+                                    <td><input class='tableInput'type="file" name='add-img' required></td>
                                     <td>
                                         <select name="add-category" id="">
                                             <?php 
@@ -167,7 +170,7 @@
                                             ?>  
                                         </select>
                                     </td>
-                                    <td><button name='add' type='submit'>ADD</button></td>
+                                    <td><button class='add' name='add' type='submit'>ADD</button></td>
                                 </tr>
                             </form>
                         </tbody>
