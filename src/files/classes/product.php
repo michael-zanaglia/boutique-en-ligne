@@ -17,6 +17,12 @@
             return $result;
         }
 
+        public function getAllItems(){
+            $req = $this -> _db -> query("SELECT * FROM product");
+            $result = $req -> fetchAll();
+            return $result;
+        }
+
         public function getAllProduct(){
             $req = $this -> _db -> query("SELECT product.*, category.category_name FROM product INNER JOIN category ON product.id_category = category.id") ;
             $results = $req->fetchAll();

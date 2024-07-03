@@ -1,0 +1,43 @@
+h2{
+    font-family: "Oswald", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-size: 1.5em;
+    font-weight: 400;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.cases {
+    height: 350px;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.5s ease-in;
+}
+
+.cases img {
+    width: 328px;
+    height: 350px;
+    object-fit: cover;
+    object-position: center;
+    transition: all 0.5s ease-in;
+}
+
+.cases:hover {
+    width: 100vw;
+    height: 100vh;
+}
+
+.cases:hover img{
+    width: 100vw;
+    height: 100vh;
+    user-select: none;
+    overflow: scroll;
+}

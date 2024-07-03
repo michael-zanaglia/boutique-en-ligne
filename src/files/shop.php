@@ -1,28 +1,7 @@
 <?php
-    require "classes/user.php"; 
-    session_start();
-    $success = false;
-    $msg = "";
-    
-    if(!isset($_SESSION['user'])){
-        header("Location: error.php");
-    } else {
-        $user = new User($_SESSION['user']);
-    }
-
-    if(isset($_POST['valid'])){
-        $success = $user -> checkMyPassword($_POST['former']);
-        if($success){
-            if($_POST['new'] == $_POST['confirm']){
-                $msg = $user -> changePassword($_POST['new']);
-            } else {
-                $msg = "Les champs pour le nouveau mot de passe ne sont pas similaires.";
-            }
-        } else {
-            $msg = "Le mot de passe actuel n'est pas le bon.";
-        }
-    }
-
+    require "classes/product.php";
+    $product = new Product(); 
+    $allItems = $product -> getAllItems();
 ?>
 
 <!DOCTYPE html>
@@ -32,8 +11,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="styles/profile.css">
-    <title>Modifier le mot de passe</title>
+    <link rel="stylesheet" href="styles/shop.css">
+    <title>Shop</title>
 </head>
 <body>
     <header class='navigation'>
@@ -41,6 +20,13 @@
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"stroke-width="1.5" stroke="currentColor" class="size-6 burger taille64">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5" />
             </svg>
+            <ul class='menu-burger'>
+                <li><a href="#"><h2>Mon compte</h2></a></li>
+                <li><a href="#"><h2>Mon panier</h2></a></li>
+                <li><a href="#"><h2>Vos favoris</h2></a></li>
+                <li><a href="#"><h2>Le shop</h2></a></li>
+                <li><button class='btn-rouge'>Se déconnecter</button></li>
+            </ul>
             <a href="acceuil.php"><img class='logo' src="../asset/logo.png" alt="FOG"></a>
         </nav>
         <nav>
@@ -70,25 +56,20 @@
             </ul>
         </nav>
     </header>
-    <div class='marge'>
-        <h1>CHANGER DE MOT DE PASSE</h1>
+    <div class='side-marge'>
+        <h2>NOS PRODUITS</h2>
     </div>
-    <div id='cadre-form-pwd'>
-        <form id='change-pwdForm' method='post'>
-            <label for="former">Ancien mot de passe*</label>
-            <input class='inp-line' type="password" name='former' required>
-            <div class='bd'></div>
-        
-            <label for="new">Nouveau mot de passe*</label>
-            <input class='inp-line' type="password" name='new' required> 
-            <div class='bd'></div>   
-    
-            <label for="confirm">Confirmer le nouveau mot de passe*</label>
-            <input class='inp-line' type="password" name='confirm' required> 
-            <div class='bd'></div>   
-            <button type='submit' name="valid" class='btn-vert'>Valider</button>
-            <p><?php echo $msg ? $msg : '' ?></p>
-        </form>
-    
+    <div class='flex-container'>
+        <?php
+            foreach($allItems as $item){
+                echo "<div class='cases'>
+                        <img class='slider-item' src='data:image;base64,".$item['image']."' alt='shop-img'>
+                    </div>";
+            }
+        ?>
+    </div>
+    <script src="js/menu.js"></script>
+<body>
+
 </body>
 </html>
