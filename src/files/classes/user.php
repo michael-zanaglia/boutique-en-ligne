@@ -14,6 +14,12 @@
             return $this ->_pseudo;
         }
 
+        public function getId(){
+            $req = $this->_db->prepare("SELECT id FROM user WHERE pseudo = ?");
+            $req -> execute([$this -> getPseudo()]);
+            return $req->fetch();
+        }
+
         public function getPassword(){
             $req = $this->_db->prepare("SELECT password FROM user WHERE pseudo = ?");
             $req -> execute([$this -> getPseudo()]);
@@ -50,7 +56,7 @@
         public function logoutUser(){
             if(isset($_POST['deco'])){
                 session_destroy();
-                header("Location: connexion.html");
+                header("Location: connexion.php");
             }
         }
 

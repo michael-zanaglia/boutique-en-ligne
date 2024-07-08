@@ -1,18 +1,38 @@
 <?php
-    require "classes/user.php";
+    //<a href='detail.php?id_product=<?=$_GET['id_product']?
     require "classes/product.php";
-    $product = new Product();
-    $myImgs = $product -> getNewItems();
-    //var_dump($myImgs);
-    //$nbrArray = count($myImgs);
+    require "classes/user.php";
+    require "classes/basket.php";
     session_start();
-    if (isset($_SESSION['user'])){
+    if(isset($_SESSION['user'])){
         $user = new User($_SESSION['user']);
-        $user -> logoutUser();
     } else {
         $user = new User();
     }
+    $basket = new Basket();
+    $product = new Product();
+    if(isset($_GET['id_product'])){
+        $res = $product -> getInfoById($_GET['id_product']);
+        //echo "chargement de page <br>";
+        //var_dump($res);
+        if(!$res) {
+            header("Location: 404.php");
+            exit;
+        }
+    }
+    if(isset($_POST['addToBasket'])){
+        $id_user = $user -> getId();
+        $added = $basket -> addToBasketDatabase($id_user['id'], $_POST['took'], $_GET['id_product']);
+        if($added){
+            $staying = $res['stock']- $_POST['took'];
+            $product -> UpdateStock($staying, $_GET['id_product']);
+            $res = $product -> getInfoById($_GET['id_product']);
+        }
+        //var_dump($res);
+    }
+    $user -> logoutUser();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,8 +40,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="styles/home.css">
-    <title>Acceuil</title>
+    <link rel="stylesheet" href="styles/detail.css">
+    <title>Détail</title>
 </head>
 <body>
     <header class='navigation'>
@@ -74,51 +94,30 @@
             </ul>
         </nav>
     </header>
-    <h1>Welcome <?php echo isset($_SESSION['user'])? $_SESSION['user'] : $user -> getPseudo(); ?></h1>
-    <div class='page'>
-        <div>
-            <div class='diapo'></div>
-            <div class='slider'>
-                <?php
-                    foreach ($myImgs as $myImg){
-                        echo "<img class='slider-item' src='data:image;base64,".$myImg['image']."' alt='new-img'>";
-                    }
-                ?>
-            </div>
-        </div>
-            
-
-        <div class='side-marge'>
-            <h2>PROCHAINEMENT...</h2>
-        </div>
-
-        <div class='caroussel'>
-            <div class="caroussel-item">t</div>
-            <div class="caroussel-item">e</div>
-            <div class="caroussel-item">e</div>
-            <div class="caroussel-item">s</div>
-            <div class="caroussel-item">s</div>
-            <div class="caroussel-item">s</div>
-            <div class="caroussel-item">s</div>
-            <div class="caroussel-item">s</div>
-        </div>  
-
-        <div class='side-marge'>
-            <h2>BEST-SELLER</h2>
-        </div>
-
-        <div class="podium">
-            <div class="pod deux">
-                2
-            </div>
-            <div class="pod un">
-                1
-            </div>
-            <div class="pod trois">
-                3
-            </div>
-        </div>
+    <div class='margeAd'><div></div><h1><?= $res['name']?></h1></div>
+    <div class='produit'>
+        <img src="<?="data:image;base64,".$res['image'] ?>" alt="img-product">
     </div>
+    <p>Quantité : <span class='stockTotal'><?= $res['stock']?> </span>restante(s)</p>
+    <p>Description : <?= $res['description']?></p>
+    <p>Prix : <?= $res['price']?> $</p>
+    <form action='detail.php?id_product=<?=$_GET['id_product']?>' method='post' id='form-add'>
+        <div id='howMany'>
+                <button type='button' class=btn-minus>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 minus taille32">
+                        <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm3 10.5a.75.75 0 0 0 0-1.5H9a.75.75 0 0 0 0 1.5h6Z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <span class="count">1</span>
+                <button type='button' class=btn-plus>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 plus taille32">
+                        <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z" clip-rule="evenodd" />
+                    </svg>
+                </button>   
+        </div>
+        <input type="hidden" class='took' name='took'>
+        <button class='btn-vert' name='addToBasket' type='submit' id="adding">Ajouter au panier</button>
+    </form>
     <footer>
         <div class='footer1'>
             <p>Nous suivre !</p>
@@ -136,8 +135,7 @@
             <p class='copyright'>© 2024 FOG</p>
         </div>
     </footer>
-    <script src='js/menu.js'></script>
-    <script src='js/home.js'></script>
+    <script src="js/menu.js"></script>
+    <script src="js/detail.js"></script>
 </body>
-
 </html>

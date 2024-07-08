@@ -1,0 +1,32 @@
+.produit {
+    overflow: hidden;
+    width: 100vw;
+    height: 613px;
+}
+
+img {
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    height: 100%;
+}
+
+#howMany{
+    display: flex;
+    align-items: center;
+}
+.btn-minus, .btn-plus {
+    background-color: transparent;
+    border: none;
+}
+
+.minus, .plus {
+    cursor:pointer;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,11 +1,15 @@
 <?php
 //".$row['image']."
+    require "classes/user.php";
     require "classes/product.php";
     $product = new Product(); 
     session_start();
     if((isset($_SESSION['user']) || !isset($_SESSION['user'])) && $_SESSION['user'] !== 'root'){
         header("Location: error.php");
     }
+    
+    $user = new User();
+    $user -> logoutUser();
     $res = $product -> getAllProduct();
     //echo var_dump($res);
     $categories = $product -> getAllCategory();
@@ -41,7 +45,23 @@
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"stroke-width="1.5" stroke="currentColor" class="size-6 burger taille64">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5" />
             </svg>
-            <a href="acceuil.php"><img class='logo' src="../asset/logo.png" alt="FOG"></a>
+            <ul class='menu-burger'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 leave taille32">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+                <li><a href="profile.php"><h2>Mon compte</h2><div class='line'></div></a></li>
+                <li><a href="#"><h2>Mon panier</h2><div class='line'></div></a></li>
+                <li><a href="#"><h2>Vos favoris</h2><div class='line'></div></a></li>
+                <li><a href="shop.php"><h2>Le shop</h2><div class='line'></div></a></li>
+                <?php 
+                    if(isset($_SESSION['user'])){
+                        echo "<li class='btn-menu'><form method='post'><button class='btn-rouge' name='deco'>Se déconnecter</button></form></li>";
+                    } 
+                ?>
+            </ul>
+            
+            <a href="acceuil.php"><img class='logo' src="../asset/logo.png" alt="FOG"></a> 
+            
         </nav>
         <nav>
             <ul>
@@ -70,10 +90,7 @@
             </ul>
         </nav>
     </header>
-    
     <div class='margeAd'><div></div><h1>Admin</h1></div>
-    
-
     <div class='options'>
         <div>
             <div class='opt-items'>
@@ -181,6 +198,7 @@
         </div>
         
     </div>
+    <script src='js/menu.js'></script>
     <script src='js/admin.js'></script>
 </body>
 </html>

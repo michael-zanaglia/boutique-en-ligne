@@ -29,6 +29,12 @@
             return $results;   
         }
 
+        public function getInfoById($id){
+            $req = $this -> _db -> prepare("SELECT * FROM product WHERE id = ?");
+            $req -> execute([$id]) ;
+            return $req -> fetch();   
+        }
+
         public function getAllCategory(){
             $req = $this -> _db -> query("SELECT category_name FROM category");
             return $req->fetchAll(PDO::FETCH_ASSOC);
@@ -51,10 +57,9 @@
             $image = $img;
             $category = htmlspecialchars($form['category']);
             $id_category = $this -> getCategoryId($category);
-            
-            $imgBase64 = $this -> _imageClass -> imageToBase64($image);
 
             if($_FILES['image']['name'] !== ''){
+                $imgBase64 = $this -> _imageClass -> imageToBase64($image);
                 $req = $this -> _db -> prepare("UPDATE product SET name = ?, description = ?, stock = ?, price = ?, state = ?, image = ?, id_category = ? WHERE id = ?");
                 $req -> execute([$name, $description, $stock, $price, $state, $imgBase64, $id_category, $id]);
             } else {
@@ -72,6 +77,11 @@
             $req -> execute([$id]);
             header('Location: admin.php'); // Redirige vers une page de confirmation
             exit;
+        }
+
+        public function UpdateStock($stayed, $id){
+            $req = $this -> _db -> prepare("UPDATE product SET stock = ? WHERE id = ?");
+            $req -> execute([($stayed), $id]);
         }
 
         public function addProduct($form, $img){

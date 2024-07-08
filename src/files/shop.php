@@ -1,5 +1,9 @@
 <?php
     require "classes/product.php";
+    require "classes/user.php";
+    $user = new User();
+    session_start();
+    $user -> logoutUser();
     $product = new Product(); 
     $allItems = $product -> getAllItems();
 ?>
@@ -21,13 +25,22 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5" />
             </svg>
             <ul class='menu-burger'>
-                <li><a href="#"><h2>Mon compte</h2></a></li>
-                <li><a href="#"><h2>Mon panier</h2></a></li>
-                <li><a href="#"><h2>Vos favoris</h2></a></li>
-                <li><a href="#"><h2>Le shop</h2></a></li>
-                <li><button class='btn-rouge'>Se déconnecter</button></li>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 leave taille32">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+                <li><a href="profile.php"><h2>Mon compte</h2><div class='line'></div></a></li>
+                <li><a href="#"><h2>Mon panier</h2><div class='line'></div></a></li>
+                <li><a href="#"><h2>Vos favoris</h2><div class='line'></div></a></li>
+                <li><a href="shop.php"><h2>Le shop</h2><div class='line'></div></a></li>
+                <?php 
+                    if(isset($_SESSION['user'])){
+                        echo "<li class='btn-menu'><form method='post'><button class='btn-rouge' name='deco'>Se déconnecter</button></form></li>";
+                    } 
+                ?>
             </ul>
-            <a href="acceuil.php"><img class='logo' src="../asset/logo.png" alt="FOG"></a>
+            
+            <a href="acceuil.php"><img class='logo' src="../asset/logo.png" alt="FOG"></a> 
+            
         </nav>
         <nav>
             <ul>
@@ -63,13 +76,28 @@
         <?php
             foreach($allItems as $item){
                 echo "<div class='cases'>
-                        <img class='slider-item' src='data:image;base64,".$item['image']."' alt='shop-img'>
+                        <a href='detail.php?id_product=".$item['id']."'><img class='slider-item' src='data:image;base64,".$item['image']."' alt='shop-img'></a>
                     </div>";
             }
         ?>
     </div>
+    <footer>
+        <div class='footer1'>
+            <p>Nous suivre !</p>
+            <div>
+                <a href="#"><img class='Xicon' src="../asset/Xicon.png" alt="X-icon"></a>
+                <a href="#"><img class='taille42' src="../asset/Instaicon.png" alt="instagram-icon"></a>
+            </div>
+        </div>
+        <div class='footer2'>
+            <button><svg class="taille32" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" /></svg>Nous contacter</button>
+            <button><img class="taille32" src="../asset/handshake.png" alt="handshake-icon">Nous rejoindre</button>
+        </div>
+        <div class='footer3'>
+            <a href="#"><p>Qui sommes-nous ?</p></a>
+            <p class='copyright'>© 2024 FOG</p>
+        </div>
+    </footer>
     <script src="js/menu.js"></script>
-<body>
-
 </body>
 </html>
