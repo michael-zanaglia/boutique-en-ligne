@@ -240,8 +240,36 @@ footer p {
     border-left: 3px solid #A8B5E1;
 }
 
+.basket-container {
+    position: relative;
+    display: inline-block;
+}
 
+.notif-basket {
+    position: absolute;
+    left: 61%;
+    border-radius: 14px;
+    font-size: .7em;
+    background-color: #FF8933;
+    color: white;
+    height: 18px;
+    width: 18px;
+    text-align: center;
+    padding-top: 3px;
+    user-select: none;
+}
 
+/*position: absolute;
+  left: 61%;
+  border-radius: 14px;
+  font-size: .7em;
+  background-color: #FF8933;
+  color: white;
+  height: 18px;
+  width: 18px;
+  text-align: center;
+  padding-top: 3px;
+*/
 
 @media only screen and (min-width: 812px){
     .marge {

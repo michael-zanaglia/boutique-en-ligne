@@ -1,9 +1,22 @@
 <?php
     require "classes/user.php";
+    require "classes/basket.php";
     $user = new User();
+    $basket = new Basket();
     session_start();
-    $user -> logoutUser();
-
+    if(isset($_SESSION['user'])){
+        $user = new User($_SESSION['user']);
+        $id_user = $user -> getId();
+        $user -> logoutUser();
+    } else {
+        header("Location: connexion.php"); 
+        exit;
+    }
+    $mybasket = $basket -> getNumberArticlebyId($id_user['id']);
+    $nbArticle = 0;
+    foreach($mybasket as $nb){
+        $nbArticle += $nb['quantite'];
+    }
 ?>
 
 <!DOCTYPE html>
@@ -57,7 +70,10 @@
                     
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="panier.php" class='basket-container'>
+                        <?php if($nbArticle !== 0) :?>
+                            <div class='notif-basket'><p><?=$nbArticle?></p></div>
+                        <?php endif;?>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000000" class="size-6 taille32">
                             <path fill-rule="evenodd" d="M7.5 6v.75H5.513c-.96 0-1.764.724-1.865 1.679l-1.263 12A1.875 1.875 0 0 0 4.25 22.5h15.5a1.875 1.875 0 0 0 1.865-2.071l-1.263-12a1.875 1.875 0 0 0-1.865-1.679H16.5V6a4.5 4.5 0 1 0-9 0ZM12 3a3 3 0 0 0-3 3v.75h6V6a3 3 0 0 0-3-3Zm-3 8.25a3 3 0 1 0 6 0v-.75a.75.75 0 0 1 1.5 0v.75a4.5 4.5 0 1 1-9 0v-.75a.75.75 0 0 1 1.5 0v.75Z" clip-rule="evenodd" />
                         </svg>

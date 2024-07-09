@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function(){
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
         const formdata = new FormData(form);
-        let res = await fetchToPhp(formdata, "inscription.php");
+        let res = await fetchToPhp(formdata, "postRequest/reg.php");
         console.log(res['msg']);
         if (res["msg"] !== ""){
             pElement.textContent = res["msg"];

@@ -11,8 +11,9 @@ document.addEventListener("DOMContentLoaded", function() {
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
         const formData = new FormData(form); 
-        const res = await fetchToPhp(formData, "connexion.php");
+        const res = await fetchToPhp(formData, "postRequest/conn.php");
         if(res['success']){
+            console.log("go to home page");
             window.location.href='acceuil.php';
         } else {
             pElement.innerText="Connexion Impossible. :(";

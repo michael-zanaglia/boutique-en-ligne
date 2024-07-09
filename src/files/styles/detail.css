@@ -30,3 +30,17 @@ form {
     justify-content: center;
     align-items: center;
 }
+
+.btnI {
+    margin-top: 1px;
+    background-color: #a4a4a4;
+    color: whitesmoke;
+    height: 50px;
+    width: 200px;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+#no-stock {
+    color: #EB5858;
+}
