@@ -1,0 +1,46 @@
+.order-container {
+    overflow-y: scroll;
+    max-height: 100vh;
+    width: 100vw;
+    background-color: grey;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.case {
+    padding: 5px;
+    background-color: whitesmoke;
+}
+
+.entete {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.info {
+    overflow: hidden;
+    max-height: 0;
+    transform: rotate(0);
+    transition: max-height 0.3s ease-in;
+}
+
+.active {
+    max-height: 1000px;
+}
+
+.rotate {
+    transform: rotate(-180deg);
+}
+
+.date {
+    text-align: end;
+}
+
+.slide-down {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease-in;
+}

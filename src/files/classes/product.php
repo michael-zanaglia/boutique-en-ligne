@@ -47,6 +47,13 @@
             return $result['id'];
         }
 
+        public function getStock($id){
+            $req = $this -> _db -> prepare("SELECT stock FROM product WHERE id = ?");
+            $req -> execute([$id]);
+            $result = $req -> fetch();
+            return $result['stock'];
+        }
+
         public function updateProduct($form, $img){
             $id = htmlspecialchars($form['upt']);
             $name = htmlspecialchars($form['name']);

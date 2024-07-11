@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", function(){
     const burger = document.querySelector(".burger");
     const menu = document.querySelector(".menu-burger");
     const cross = document.querySelector(".leave"); 
+    const searchTool = document.querySelector(".search-bar");
+    const form = document.querySelector(".form-search");
 
 
     function openMenu(){
@@ -23,5 +25,15 @@ document.addEventListener("DOMContentLoaded", function(){
         if(menu.classList.contains("open") && !menu.contains(e.target) && e.target !== burger){
             menu.classList.remove("open");
         }
+        if(form.classList.contains("formShown") && !form.contains(e.target) && e.target != searchTool){
+            form.classList.remove("formShown");
+        }
     })
+
+    searchTool.addEventListener("click", ()=>{
+        form.classList.toggle("formShown");
+    })
+    form.addEventListener("click", (e) => {
+        e.stopPropagation(); // Empêche la propagation du clic jusqu'à .search-bar
+    });
 })

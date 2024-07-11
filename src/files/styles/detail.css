@@ -44,3 +44,7 @@ form {
 #no-stock {
     color: #EB5858;
 }
+
+.fav {
+    cursor: pointer;
+}

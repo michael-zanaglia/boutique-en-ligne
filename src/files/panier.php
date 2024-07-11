@@ -1,8 +1,10 @@
 <?php
     require "classes/user.php";
     require "classes/basket.php";
+    require "classes/order.php";
     $user = new User();
     $basket = new Basket();
+    $order = new Order();
     session_start();
     if(isset($_SESSION['user'])){
         $user = new User($_SESSION['user']);
@@ -14,6 +16,7 @@
     }
     $mybasket = $basket -> getNumberArticlebyId($id_user['id']);
     $nbArticle = 0;
+    $total = 0;
     foreach($mybasket as $nb){
         $nbArticle += $nb['quantite'];
     }
@@ -42,8 +45,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                 </svg>
                 <li><a href="profile.php"><h2>Mon compte</h2><div class='line'></div></a></li>
-                <li><a href="#"><h2>Mon panier</h2><div class='line'></div></a></li>
-                <li><a href="#"><h2>Vos favoris</h2><div class='line'></div></a></li>
+                <li><a href="basket.php"><h2>Mon panier</h2><div class='line'></div></a></li>
+                <li><a href="panier.php"><h2>Vos favoris</h2><div class='line'></div></a></li>
                 <li><a href="shop.php"><h2>Le shop</h2><div class='line'></div></a></li>
                 <?php 
                     if(isset($_SESSION['user'])){
@@ -51,9 +54,8 @@
                     } 
                 ?>
             </ul>
-            
+
             <a href="acceuil.php"><img class='logo' src="../asset/logo.png" alt="FOG"></a> 
-            
         </nav>
         <nav>
             <ul>
@@ -85,39 +87,54 @@
             </ul>
         </nav>
     </header>
+    <div class='search-bar'>
+        <form class='form-search'>
+            <input type="text" autocompletion='off'> 
+            <button type='submit'>Search</button>
+        </form> 
+    </div>
     <main>
        <div class='margeAd'><div></div><h1>Votre commande</h1></div> 
-            <form action="" method="post">
-                <div class='mybasket-article'>
-                    <?php foreach($myArticles as $article) :?>
-                        <div class='case'>
-                            <input class='id-product' type="hidden" value='<?=$article['id_product']?>'>
-                            <div class='img-case'><img src='data:image;base64,<?=$article['image']?>' alt='article-img'></div>
-                            <div class='info-case'>
-                                <h4><?=$article['name']?></h4>
-                                <p>Prix à l'unité <?=$article['price']?> $</p>
+            <?php if ($myArticles) : ?>
+                <form method="post">
+                    <div class='mybasket-article'>
+                        <?php foreach($myArticles as $article) :?>
+                            <div class='case'>
+                                <input class='user-name' type="hidden" value='<?=$id_user['id']?>'>
+                                <input class='id-product' name='id[]' type="hidden" value='<?=$article['id_product']?>'>
+                                <div class='img-case'><img src='data:image;base64,<?=$article['image']?>' alt='article-img'></div>
+                                <div class='info-case'>
+                                    <h4><?=$article['name']?></h4>
+                                    <p>Prix à l'unité <?=$article['price']?> $</p>
+                                    <?php $total += ($article['price']*$article['quantite']); ?>
+                                </div>
+                                <div class='quantite'>
+                                    <p>Qte.</p>
+                                    <input name='quant[]' type="hidden" value='<?=$article['quantite']?>'>
+                                    <select name="nbr-article">
+                                        <?php for($i = 1; $i<=($article['stock']+$article['quantite']); $i++) :?>
+                                            <?php if($i === $article['quantite']) :?>
+                                                <option class='options' value="<?=$article['quantite']?>" selected><?=$article['quantite']?></option>
+                                            <?php else :?>
+                                                <option class='options' value="<?=$i?>"><?=$i?></option>
+                                            <?php endif ;?>
+                                        <?php endfor ;?>
+                                    </select>
+                                </div>
+                                <button type='button' class='delete-case'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 leave taille32">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
                             </div>
-                            <div class='quantite'>
-                                <p>Qte.</p>
-                                <select name="nbr-article">
-                                    <?php for($i = 1; $i<=($article['stock']+$article['quantite']); $i++) :?>
-                                        <?php if($i === $article['quantite']) :?>
-                                            <option class='options' value="<?=$article['quantite']?>" selected><?=$article['quantite']?></option>
-                                        <?php else :?>
-                                            <option class='options' value="<?=$i?>"><?=$i?></option>
-                                        <?php endif ;?>
-                                    <?php endfor ;?>
-                                </select>
-                            </div>
-                            <button class='delete-case'>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 leave taille32">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                                </svg>
-                            </button>
-                        </div>
-                    <?php endforeach;?>
-                </div>
-            </form>
+                        <?php endforeach;?>
+                    </div>
+                    <p>Total: <?= $total ?> $</p>
+                    <button type='submit' name='sub' class='btn-vert'>Valider</button>
+                </form>
+                <?php else : ?>
+                    <h1>Panier Vide</h1>
+            <?php endif ?>
         </div>
     </main>
     <footer>
@@ -141,3 +158,25 @@
     <script type='module' src='js/panier.js'></script>
 </body>
 </html>
+
+<?php 
+    if($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['sub'])){
+        $time = time();
+        $alpbt = range("A", "Z");
+        $str = "";
+        foreach($alpbt as $char){
+            $str .= $char;
+        }
+        $str = str_shuffle($str);
+        $order_reference = $id_user['id'].$time.substr($str, 0, 5);
+        foreach($myArticles as $article){
+            $quantite = $article['quantite'];
+            $id_product = $article['id_product'];
+            $response = $order -> addToOrderDatabase($order_reference, date('Y-m-d'), $quantite, $id_product, $id_user['id'], $total);
+        }
+        if($response){
+            $basket -> deleteMyBasket($id_user['id']);
+        }
+        
+    }
+?>

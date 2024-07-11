@@ -1,33 +1,25 @@
 <?php
     require "classes/user.php";
     require "classes/basket.php";
+    require "classes/order.php";
+    $user = new User();
+    $basket = new Basket();
+    $order = new Order();
     session_start();
-    $success = false;
     if(isset($_SESSION['user'])){
         $user = new User($_SESSION['user']);
-        // Valeurs pour mes inputs
-        $res = $user -> getInformationUser();
-        $id = $res['id'];
-        $fullName = $res["nom & prenom"];
-        $birth = $res["naissance"];
-        $addr = $res["address"];
-        $mail = $res["mail"];
-        // -----------------------
-        if(!empty($_POST['pseudo'])){
-            $success = $user -> UpdateUser($id, $_POST['pseudo'], $_POST['fullName'], $_POST['birth'], $_POST['addr'], $_POST['mail']);
-        }
+        $id_user = $user -> getId();
         $user -> logoutUser();
     } else {
         header("Location: connexion.php"); 
         exit;
     }
-    $basket = new Basket();
-    $mybasket = $basket -> getNumberArticlebyId($id);
+    $mybasket = $basket -> getNumberArticlebyId($id_user['id']);
     $nbArticle = 0;
     foreach($mybasket as $nb){
         $nbArticle += $nb['quantite'];
     }
-    $user -> logoutUser(); 
+    $myArticles = $basket -> getInformationFromMyBasket($id_user['id']);
 ?>
 
 <!DOCTYPE html>
@@ -37,8 +29,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="styles/profile.css">
-    <title>Profile</title>
+    <title>Mes Favoris</title>
 </head>
 <body>
     <header class='navigation'>
@@ -60,9 +51,8 @@
                     } 
                 ?>
             </ul>
-            
+
             <a href="acceuil.php"><img class='logo' src="../asset/logo.png" alt="FOG"></a> 
-            
         </nav>
         <nav>
             <ul>
@@ -100,58 +90,7 @@
             <button type='submit'>Search</button>
         </form> 
     </div>
-        <h1>Profile</h1>
-    <div class='side-marge'>
-        <h3>INFORMATIONS</h3>
-    </div>
-    <div id='cadre-form'>
-        <form id='change-userForm' method='post'>
-            <div id='radios'>
-                <label for="MMLE">Mlle.</label>
-                <input type="radio" id='MLLE' name='radio'>  
-                <label for="MME">Mme.</label>
-                <input type="radio" id='MME' name='radio'>  
-                <label for="MR">Mr.</label>
-                <input type="radio" id='MR' name='radio'>  
-            </div>
-            
-            <label for="pseudo">Pseudo</label>
-            <input class='inp-line' type="text" name='pseudo' value='<?php echo $_SESSION['user'] ?>''>
-            <div class='bd'></div>
-        
-            <label for="fullName">NOM & Prénom</label>
-            <input class='inp-line' type="text" name=fullName value='<?php echo $fullName ?>' required> 
-            <div class='bd'></div>   
-    
-            <label for="birth">Date de Naissance</label>
-            <input class='inp-line' type="date" name='birth' value='<?php echo $birth ?>'> 
-            <div class='bd'></div>   
-    
-            <label for="mail">Adresse Email</label>
-            <input class='inp-line' type="email" name='mail' value='<?php echo $mail ?>''>
-            <div class='bd'></div>     
-        
-            <label for="addr">Adresse de Livraison</label>
-            <input class='inp-line' type="text" name='addr' value='<?php echo $addr ?>'>
-            <div class='bd'></div>
-            
-            <button type='submit' class='btn-vert'>Valider</button>
-        </form>
-        <p><?php echo $success ? "Profile mis à jour :) !": "" ?></p>
-    </div>
-    <div class='container-case'>
-        <div class='case order'>
-            <img class='taille200' src="../asset/boxicon.png" alt="order-img">
-            <h2>MES DERNIERES COMMANDES</h2>
-        </div>
-        <div class='case mdp'>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 taille200">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 1 1 9 0v3.75M3.75 21.75h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H3.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
-            </svg>
-            <h2>CHANGER LE MOT DE PASSE</h2>
-        </div>
-        <form method="post"><button class='centrer-relative btn-rouge' type='submit' name='deco'>Déconnexion</button></form>
-    </div>
+    <div class='margeAd'><div></div><h1>FAVORIS</h1></div> 
     <footer>
         <div class='footer1'>
             <p>Nous suivre !</p>
@@ -170,6 +109,5 @@
         </div>
     </footer>
     <script src='js/menu.js'></script>
-    <script src='js/profile.js'></script>
 </body>
 </html>

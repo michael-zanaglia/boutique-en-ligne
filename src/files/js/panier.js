@@ -2,12 +2,14 @@ import fetchToPhp from "./functions/fetch";
 document.addEventListener("DOMContentLoaded", function() {
     const selects = document.querySelectorAll("select");
     const ids = document.querySelectorAll(".id-product");
+    const buttons = document.querySelectorAll(".delete-case");
+    const users = document.querySelectorAll(".user-name");
+    const mainBtn = document.querySelector(".btn-vert");
 
     selects.forEach((select, index) => {
         let prevSelect = select.value;
         select.addEventListener("change", async ()=>{
             let id = ids[index].value;
-            console.log("-----",id)
             const formdata = new FormData();
             formdata.append('new', select.value)
             formdata.append('former', prevSelect)
@@ -15,8 +17,30 @@ document.addEventListener("DOMContentLoaded", function() {
             console.log(select.value);
             const result = await fetchToPhp(formdata, "postRequest/stock.php"); 
             if(result){
-                console.log("valide")
+                window.location.reload();
+                console.log('done');
             }
         })
     });
+
+    buttons.forEach((btn, index)=>{
+        btn.addEventListener("click", async () => { 
+            let user = users[index].value; 
+            let id = ids[index].value;
+            let select = selects[index].value;
+            const formbtn = new FormData();
+            formbtn.append('user', user);
+            formbtn.append('id', id);
+            formbtn.append('quant', select);
+            const result = await fetchToPhp(formbtn, "postRequest/delBasketArticle.php"); 
+            if(result){
+                window.location.reload();
+                console.log('done');
+            }
+        });
+    });
+
+    //mainBtn.addEventListener("click", () => {
+    //    window.location.reload();
+    //})
 });

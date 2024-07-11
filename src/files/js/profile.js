@@ -9,8 +9,12 @@ document.addEventListener("DOMContentLoaded", function(){
     //        })
     //    })
     //})
+    const caseOrder = document.querySelector(".order");
     const caseChangePwd = document.querySelector('.mdp');
     caseChangePwd.addEventListener('click', ()=>{
         window.location.href = "changePwd.php";
+    })
+    caseOrder.addEventListener('click', ()=>{
+        window.location.href = "commande.php";
     })
 })

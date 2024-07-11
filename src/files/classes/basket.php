@@ -65,7 +65,21 @@
             $req -> execute([$id]);
             return $req -> fetchAll();
         }   
-    }
+        
+        public function deleteMyBasket($id_user){
+            $req = $this -> _db -> prepare("DELETE FROM basket WHERE id_user = ?");
+            $req -> execute([$id_user]);
+        }
 
+        public function deleteArticleFromMyBasket($id_user, $id_product, $quant){
+            $req = $this -> _db -> prepare("DELETE FROM basket WHERE id_user = ? AND id_product = ?");
+            $req -> execute([$id_user, $id_product]);
+            if ($req){
+                $currentStock = $this -> _product -> getStock($id_product);
+                $totalStock = $currentStock + $quant;
+                $this -> _product -> UpdateStock($totalStock, $id_product);
+            }
+        }
+    }
     $exportedBasket = var_export(new Basket(), true);
 ?>
