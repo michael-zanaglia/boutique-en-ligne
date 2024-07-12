@@ -29,6 +29,12 @@ h3{
     max-height: 0px;
     transition: max-height 0.5s ease-in-out;
 }
+.tableHome {
+    overflow-y: hidden;
+    max-height: 0px;
+    transition: max-height 0.5s ease-in-out;
+}
+
 .active {
     max-height: 1000px;
 }
@@ -41,8 +47,9 @@ table {
     border-collapse: collapse;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 90vw;
+    max-width: 90vw;
     background-color: white;
+    margin-bottom: 15px;
 }
 thead{
     background-color: #A8B5E1;

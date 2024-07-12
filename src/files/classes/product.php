@@ -11,6 +11,14 @@
             $this -> _imageClass = new Image();
         }
 
+        public function getNameByCompletion($mot){
+            $mot = '%'.$mot.'%';
+            $req = $this -> _db -> prepare("SELECT name, id FROM product WHERE name LIKE ?");
+            $req -> execute([$mot]);
+            $result = $req -> fetchAll();
+            return $result;
+        }
+
         public function getNewItems(){
             $req = $this -> _db -> query("SELECT image FROM product ORDER BY id DESC LIMIT 3");
             $result = $req -> fetchAll();

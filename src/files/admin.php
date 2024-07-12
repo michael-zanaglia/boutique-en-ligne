@@ -3,8 +3,10 @@
     require "classes/user.php";
     require "classes/product.php";
     require "classes/basket.php";
+    require "classes/adminMiddle.php";
     $product = new Product(); 
     $basket = new Basket();
+    $admin = new Admin();
     session_start();
     if((isset($_SESSION['user']) || !isset($_SESSION['user'])) && $_SESSION['user'] !== 'root'){
         header("Location: error.php");
@@ -18,21 +20,29 @@
         $user = new User();
     }
     $res = $product -> getAllProduct();
-    //echo var_dump($res);
+    $mid = $admin -> getAllNextProduct();//echo var_dump($res);
     $categories = $product -> getAllCategory();
-
+    
     if((isset($_POST['upt']))){
         //var_dump($_FILES['image']);
         $product -> updateProduct($_POST, $_FILES['image']['tmp_name']);
+    }
+    if((isset($_POST['admin-upt']))){
+        $admin -> updateNewProduct($_POST, $_FILES['image']['tmp_name']);
     }
 
     if((isset($_POST['del']))){
         $product -> deleteProduct($_POST);
     }
+    if((isset($_POST['admin-del']))){
+        $admin -> deleteNewProduct($_POST);
+    }
 
     if((isset($_POST['add']))){
-        var_dump($_FILES);
         $product -> addProduct($_POST, $_FILES['add-img']['tmp_name']);
+    }
+    if((isset($_POST['add-admin']))){
+        $admin -> addNextProduct($_POST, $_FILES['admin-img']['tmp_name']);
     }
     $mybasket = $basket -> getNumberArticlebyId($id_user['id']);
     $nbArticle = 0;
@@ -107,20 +117,80 @@
     </header>
     <div class='search-bar'>
         <form class='form-search'>
-            <input type="text" autocompletion='off'> 
-            <button type='submit'>Search</button>
-        </form> 
+            <div class='container-form'>
+                <input class='inp' name='search' type="text" autocompletion='off' placeholder="Rechercher un de nos produits.."> 
+                <button name='btn-search' type='submit'>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="taille24 size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                    </svg>
+                </button>
+            </div>
+            <div class='autocompletion'></div>
+        </form>   
     </div>
     <div class='margeAd'><div></div><h1>Admin</h1></div>
     <div class='options'>
         <div>
             <div class='opt-items'>
                 <h3>Home Page</h3>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 taille32">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" id="home" class="size-6 taille32">
+                    <path class="pathAdn" stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>
             </div>
-            <div class='tableHome'></div>
+            <div class='tableHome'>
+                <h3>Middle Page</h3>
+                <?php if($mid) : ?>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Description</th>
+                                <th>Image</th>
+                                <th>Update</th>
+                                <th>Delete</th>
+                            </tr> 
+                        </thead>
+                        <tbody>
+                            <?php
+                                foreach($mid as $row){
+                                    echo "<form method='post' enctype='multipart/form-data'>
+                                            <tr>
+                                                <td><input name='name' autocomplete='on' class='tableInput' value='".$row['name']."'</td>
+                                                <td><input name='description' autocomplete='on' class='tableInput' value='".$row['description']."'</td>
+                                                <td><input name='image' type='file' autocomplete='off' class='tableInput' accept='image/*'></td>
+                                                <td><button type='submit' class='update' name='admin-upt' value='".$row['id']."'>UPT</button></td>
+                                                <td><button type='submit' class='del' name='admin-del' value='".$row['id']."'>DEL</button></td>
+                                            </tr>
+                                    </form>";
+                                }
+                            ?>
+                        </tbody>
+                    </table>
+                <?php else : ?>
+                    <h5>Vide</h5>
+                <?php endif ?>
+                <h3>Ajouter une case</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Description</th>
+                                <th>Image</th>
+                                <th>Add</th>
+                            </tr> 
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <form action="admin.php" method="post" enctype="multipart/form-data">
+                                    <td><input class='tableInput' type="text" name='add-name' required></td>
+                                    <td><input class='tableInput' type="text" name='add-desc' required></td>
+                                    <td><input class='tableInput' type="file" name='admin-img' accept='image/*' required></td>
+                                    <td><button class='add' name='add-admin' type='submit'>ADD</button></td>
+                                </form>       
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
         </div>
         
         <div>
@@ -157,7 +227,7 @@
                                             <td><input name='stock' autocomplete='off' class='tableInput' value='".$row['stock']."'</td>
                                             <td><input name='price' autocomplete='off' class='tableInput' value='".$row['price']."'</td>
                                             <td><input name='state' autocomplete='off' class='tableInput' value='".$row['state']."'</td>
-                                            <td><input name='image' type='file' autocomplete='off' class='tableInput'></td>
+                                            <td><input name='image' type='file' autocomplete='off' class='tableInput' accept='image/*'></td>
                                             <td><select name='category'>";
                                             foreach($categories as $cat) {
                                                 if($cat['category_name'] == $row['category_name']) {
@@ -198,7 +268,7 @@
                                     <td><input class='tableInput'type="text" name='add-stock' required></td>
                                     <td><input class='tableInput'type="text" name='add-price' required></td>
                                     <td><input class='tableInput'type="text" name='add-state'></td>
-                                    <td><input class='tableInput'type="file" name='add-img' required></td>
+                                    <td><input class='tableInput'type="file" name='add-img' accept='image/*' required></td>
                                     <td>
                                         <select name="add-category" id="">
                                             <?php 
@@ -219,7 +289,7 @@
         </div>
         
     </div>
-    <script src='js/menu.js'></script>
+    <script type='module' src='js/menu.js'></script>
     <script src='js/admin.js'></script>
 </body>
 </html>

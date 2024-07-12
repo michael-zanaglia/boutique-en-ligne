@@ -103,9 +103,16 @@
     </header>
     <div class='search-bar'>
         <form class='form-search'>
-            <input type="text" autocompletion='off'> 
-            <button type='submit'>Search</button>
-        </form> 
+            <div class='container-form'>
+                <input class='inp' name='search' type="text" autocompletion='off' placeholder="Rechercher un de nos produits.."> 
+                <button name='btn-search' type='submit'>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="taille24 size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                    </svg>
+                </button>
+            </div>
+            <div class='autocompletion'></div>
+        </form>   
     </div>
     <div class='marge'>
         <h1>CHANGER DE MOT DE PASSE</h1>
@@ -126,6 +133,7 @@
             <button type='submit' name="valid" class='btn-vert'>Valider</button>
             <p><?php echo $msg ? $msg : '' ?></p>
         </form>
-    <script src='js/menu.js'></script>
+    </div>
+    <script type='module' src='js/menu.js'></script>
 </body>
 </html>

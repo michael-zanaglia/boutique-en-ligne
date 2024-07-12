@@ -2,9 +2,12 @@
     require "classes/user.php";
     require "classes/product.php";
     require "classes/basket.php";
+    require "classes/adminMiddle.php";
+    $admin = new Admin();
     $product = new Product();
     $basket = new Basket();
     $myImgs = $product -> getNewItems();
+    $myNextImgs = $admin -> getNextImgs();
     $nbArticle = 0;
     //var_dump($myImgs);
     //$nbrArray = count($myImgs);
@@ -87,14 +90,22 @@
     </header>
     <div class='search-bar'>
         <form class='form-search'>
-            <input type="text" autocompletion='off'> 
-            <button type='submit'>Search</button>
-        </form> 
+            <div class='container-form'>
+                <input class='inp' name='search' type="text" autocompletion='off' placeholder="Rechercher un de nos produits.."> 
+                <button name='btn-search' type='submit'>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="taille24 size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                    </svg>
+                </button>
+            </div>
+            <div class='autocompletion'></div>
+        </form>   
     </div>
-    <h1>Welcome <?php echo isset($_SESSION['user'])? $_SESSION['user'] : $user -> getPseudo(); ?></h1>
     <div class='page'>
         <div>
-            <div class='diapo'></div>
+            <div class='diapo'>
+                <h1 class="welcome">Welcome <?php echo isset($_SESSION['user'])? $_SESSION['user'] : $user -> getPseudo(); ?></h1>
+            </div>
             <div class='slider'>
                 <?php
                     foreach ($myImgs as $myImg){
@@ -110,14 +121,9 @@
         </div>
 
         <div class='caroussel'>
-            <div class="caroussel-item">t</div>
-            <div class="caroussel-item">e</div>
-            <div class="caroussel-item">e</div>
-            <div class="caroussel-item">s</div>
-            <div class="caroussel-item">s</div>
-            <div class="caroussel-item">s</div>
-            <div class="caroussel-item">s</div>
-            <div class="caroussel-item">s</div>
+            <?php foreach ($myNextImgs as $myNextImg) : ?>
+                <div class="caroussel-item"><img src='data:image;base64,<?=$myNextImg['image']?>' alt='next-img'></div>
+            <?php endforeach;?>
         </div>  
 
         <div class='side-marge'>
@@ -153,8 +159,7 @@
             <p class='copyright'>© 2024 FOG</p>
         </div>
     </footer>
-    <script src='js/menu.js'></script>
+    <script type='module' src='js/menu.js'></script>
     <script src='js/home.js'></script>
 </body>
-
 </html>

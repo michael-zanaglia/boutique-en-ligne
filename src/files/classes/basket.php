@@ -13,8 +13,6 @@
             $this -> _product = new Product();
         }
 
-       
-
         public function getNumberArticlebyId($id_user){
             $req = $this->_db->prepare("SELECT quantite FROM basket WHERE id_user = ?");
             $req->execute([$id_user]);
