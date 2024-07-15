@@ -52,7 +52,7 @@
                 </svg>
                 <li><a href="profile.php"><h2>Mon compte</h2><div class='line'></div></a></li>
                 <li><a href="panier.php"><h2>Mon panier</h2><div class='line'></div></a></li>
-                <li><a href="favoris.php"><h2>Vos favoris</h2><div class='line'></div></a></li>
+                <li><a href="bookmark.php"><h2>Vos favoris</h2><div class='line'></div></a></li>
                 <li><a href="shop.php"><h2>Le shop</h2><div class='line'></div></a></li>
                 <?php 
                     if(isset($_SESSION['user'])){

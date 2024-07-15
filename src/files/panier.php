@@ -2,7 +2,6 @@
     require "classes/user.php";
     require "classes/basket.php";
     require "classes/order.php";
-    $user = new User();
     $basket = new Basket();
     $order = new Order();
     session_start();
@@ -45,8 +44,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                 </svg>
                 <li><a href="profile.php"><h2>Mon compte</h2><div class='line'></div></a></li>
-                <li><a href="basket.php"><h2>Mon panier</h2><div class='line'></div></a></li>
-                <li><a href="panier.php"><h2>Vos favoris</h2><div class='line'></div></a></li>
+                <li><a href="panier.php"><h2>Mon panier</h2><div class='line'></div></a></li>
+                <li><a href="bookmark.php"><h2>Vos favoris</h2><div class='line'></div></a></li>
                 <li><a href="shop.php"><h2>Le shop</h2><div class='line'></div></a></li>
                 <?php 
                     if(isset($_SESSION['user'])){
@@ -103,13 +102,13 @@
     <main>
        <div class='margeAd'><div></div><h1>Votre commande</h1></div> 
             <?php if ($myArticles) : ?>
-                <form method="post">
+                <form id='panierF' method="post">
                     <div class='mybasket-article'>
                         <?php foreach($myArticles as $article) :?>
                             <div class='case'>
                                 <input class='user-name' type="hidden" value='<?=$id_user['id']?>'>
                                 <input class='id-product' name='id[]' type="hidden" value='<?=$article['id_product']?>'>
-                                <div class='img-case'><img src='data:image;base64,<?=$article['image']?>' alt='article-img'></div>
+                                <div class='img-case'><a href="detail.php?id_product=<?=$article['id_product']?>"><img src='data:image;base64,<?=$article['image']?>' alt='article-img'></a></div>
                                 <div class='info-case'>
                                     <h4><?=$article['name']?></h4>
                                     <p>Prix à l'unité <?=$article['price']?> $</p>
@@ -137,6 +136,7 @@
                         <?php endforeach;?>
                     </div>
                     <p>Total: <?= $total ?> $</p>
+                    <input type="hidden" name='total' value='<?=$total?>'>
                     <button type='submit' name='sub' class='btn-vert'>Valider</button>
                 </form>
                 <?php else : ?>
@@ -167,23 +167,23 @@
 </html>
 
 <?php 
-    if($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['sub'])){
-        $time = time();
-        $alpbt = range("A", "Z");
-        $str = "";
-        foreach($alpbt as $char){
-            $str .= $char;
-        }
-        $str = str_shuffle($str);
-        $order_reference = $id_user['id'].$time.substr($str, 0, 5);
-        foreach($myArticles as $article){
-            $quantite = $article['quantite'];
-            $id_product = $article['id_product'];
-            $response = $order -> addToOrderDatabase($order_reference, date('Y-m-d'), $quantite, $id_product, $id_user['id'], $total);
-        }
-        if($response){
-            $basket -> deleteMyBasket($id_user['id']);
-        }
-        
-    }
+//    if($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['sub'])){
+//        $time = time();
+//        $alpbt = range("A", "Z");
+//        $str = "";
+//        foreach($alpbt as $char){
+//            $str .= $char;
+//        }
+//        $str = str_shuffle($str);
+//        $order_reference = $id_user['id'].$time.substr($str, 0, 5);
+//        foreach($myArticles as $article){
+//            $quantite = $article['quantite'];
+//            $id_product = $article['id_product'];
+//            $response = $order -> addToOrderDatabase($order_reference, date('Y-m-d'), $quantite, $id_product, $id_user['id'], $total);
+//        }
+//        if($response){
+//            $basket -> deleteMyBasket($id_user['id']);
+//        }
+//        
+//    }
 ?>

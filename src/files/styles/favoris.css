@@ -1,0 +1,56 @@
+.fav-container {
+    overflow-y: scroll;
+    max-height: 550px;
+    background-color: #C1D5F0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#form-fav {
+    position: relative;
+    margin-top: 10%;
+    margin-bottom: 20%;
+}
+
+#buttons {
+    position: absolute;
+    left: 0;
+    top: 100%;
+}
+
+#buttons button {
+    background-color: #A8B5E1;
+    cursor: pointer;
+    border: none;
+}
+
+.case {
+    display: flex;
+    align-items: center;
+    background-color: #A8B5E1;
+    height: 98px;
+    gap: 15px;
+}
+
+.img-cadre {
+    overflow: hidden;
+    height: 80px;
+    width: 115px;
+    border-radius: 5px;
+}
+
+.img-cadre img {
+    object-fit: cover;
+    width: 115px;
+    height: 170px;
+
+}
+
+.textP {
+    white-space: nowrap;
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    width: 222px;
+}
+

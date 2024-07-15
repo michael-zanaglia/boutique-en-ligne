@@ -6,7 +6,7 @@
         if($clicked){
             $response = $favoris -> addToFavoris($_POST['id_product'], $_POST['id_user']); 
         } else {
-            $response = $favoris -> deleteArticleFromFavoris($_POST['id_product']); 
+            $response = $favoris -> deleteArticleFromFavoris($_POST['id_product'], $_POST['id_user']); 
         }
         return true;
     }

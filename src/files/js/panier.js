@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const buttons = document.querySelectorAll(".delete-case");
     const users = document.querySelectorAll(".user-name");
     const mainBtn = document.querySelector(".btn-vert");
+    const form = document.getElementById("panierF");
 
     selects.forEach((select, index) => {
         let prevSelect = select.value;
@@ -40,7 +41,12 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    //mainBtn.addEventListener("click", () => {
-    //    window.location.reload();
-    //})
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault(); // Empêche le comportement par défaut de soumission du formulaire pour tester
+        const formD = new FormData(form);
+        const result = await fetchToPhp(formD, "postRequest/addToOrder.php"); 
+        if(result['success']){
+            window.location.reload();
+        }
+    });
 });
