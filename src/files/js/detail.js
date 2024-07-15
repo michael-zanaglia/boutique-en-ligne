@@ -1,14 +1,18 @@
+import fetchToPhp from "./functions/fetch";
 document.addEventListener("DOMContentLoaded", function() {
     const minus = document.querySelector(".btn-minus");
     const plus = document.querySelector(".btn-plus");
     const countDisplay = document.querySelector(".count");
     const fav = document.querySelector(".fav");
+    const id = document.querySelector(".id");
+    const user = document.querySelector(".user");
 
     let stockTotal = document.querySelector(".stockTotal").textContent;
     let took = document.querySelector(".took");
     //const add = document.getElementById("adding");
     let want = 1;
-    let clicked = false;
+    let currentFill = fav.getAttribute("fill");
+    let clicked = currentFill === '#FF0000'? true : false;
     //const form = document.getElementById("form-add");
 
     function updateDisplay() {
@@ -40,17 +44,19 @@ document.addEventListener("DOMContentLoaded", function() {
         
     });
 
-    fav.addEventListener("click", ()=>{
-        if(clicked){
-            fav.setAttribute("fill", "none");  
-            local
-        } else {
-           fav.setAttribute("fill", "#FF0000"); 
-        }
-
+    fav.addEventListener("click", async ()=>{
         clicked = !clicked;
-        
-        
+
+        if(clicked){
+            fav.setAttribute("fill", "#FF0000"); 
+        } else {
+            fav.setAttribute("fill", "none"); 
+        }
+        const formdata = new FormData();
+        formdata.append("id_product",  id.value);
+        formdata.append("id_user", user.value);
+        formdata.append("clicked", clicked);
+        let response = fetchToPhp(formdata,"postRequest/addFav.php");
     })
 
    //add.addEventListener("click", (e) =>{
