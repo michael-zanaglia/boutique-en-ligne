@@ -41,3 +41,87 @@ h2{
     user-select: none;
     overflow: scroll;
 }
+
+#filtre {
+    background-color: #C9D9F0;
+    width: 100px;
+    height: 30px;
+    border: 1px solid #A8B5E1;
+    border-radius: 3px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#filtre:hover{
+    cursor: pointer;
+    background-color: #A8B5E1;
+}
+
+#modal-bg{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(8px);
+    z-index: 5;
+    animation-name: fade;
+    animation-duration: 0.5s;
+}
+
+#modal {
+    width: 50vw;
+    height: 50vh;
+    position: absolute;
+    bottom: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #C9D9F0;
+    border-radius: 5px;
+    animation-name: slide;
+    animation-duration: 0.5s;
+}
+
+#close-mod{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    height: auto;
+    width: 100%;
+}
+
+#categories {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.selection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 100px;
+    border-radius: 3px;
+    background-color: whitesmoke;
+    border: 1px solid #a7a7a7;
+}
+
+.selection:hover{
+    background-color: #a7a7a7;
+    cursor: pointer;
+    color: whitesmoke;
+}
+
+@keyframes fade {
+    from {opacity : 0}
+    to {opacity:  1}
+}
+
+@keyframes slide {
+    from {bottom: -50vh; opacity: 0}
+    to{bottom: 25%; opacity: 1}
+}
+
+

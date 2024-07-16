@@ -1,9 +1,16 @@
-export default async function fetchToPhp(formulaire, pagePhp){
+export default async function fetchToPhp(formulaire = '', pagePhp){
+    let options;
+    if(formulaire!== ''){
+        options = {
+            method : 'POST',
+            body : formulaire
+        };  
+    } else {
+        options = {
+            method : 'GET'
+        }
+    }
     
-    let options = {
-        method : 'POST',
-        body : formulaire
-    };
     try {
         const response = await fetch(pagePhp, options);
         if(!response.ok){

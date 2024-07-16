@@ -18,7 +18,7 @@
         $user = new User();
     }
     $product = new Product(); 
-    $allItems = $product -> getAllItems();
+    $allCategories = $product -> getAllCategory();
     
 ?>
 
@@ -99,18 +99,35 @@
             <div class='autocompletion'></div>
         </form>   
     </div>
-    <div class='side-marge'>
-        <h2>NOS PRODUITS</h2>
-    </div>
-    <div class='flex-container'>
-        <?php
-            foreach($allItems as $item){
-                echo "<div class='cases'>
-                        <a href='detail.php?id_product=".$item['id']."'><img class='slider-item' src='data:image;base64,".$item['image']."' alt='shop-img'></a>
-                    </div>";
-            }
-        ?>
-    </div>
+    <main>
+        <div id='modal-bg'>
+            <div id='modal'>
+                <div id='close-mod'>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="taille24 size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+                </div>
+                <div id='mod-content'>
+                    <h2>Catégories</h2>
+                    <div id='categories'>
+                        <?php foreach($allCategories as $cat):?>
+                            <div class='selection'><?=$cat['category_name']?></div>
+                        <?php endforeach;?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id='filtre'>
+            <p>Filtrer</p>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="taille24 size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
+            </svg>
+        </div>
+        <div class='side-marge'>
+            <h2>NOS PRODUITS</h2>
+        </div>
+        <div class='flex-container'></div>  
+    </main>
     <footer>
         <div class='footer1'>
             <p>Nous suivre !</p>
@@ -129,5 +146,6 @@
         </div>
     </footer>
     <script type='module' src='js/menu.js'></script>
+    <script type='module' src='js/shop.js'></script>
 </body>
 </html>
