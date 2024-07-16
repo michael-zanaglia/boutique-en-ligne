@@ -11,6 +11,12 @@
             $this -> _imageClass = new Image();
         }
 
+        public function getHighestPrice(){
+            $req = $this -> _db -> query("SELECT price FROM product ORDER BY price DESC LIMIT 1");
+            $result = $req -> fetch();
+            return $result;
+        }
+
         public function getNameByCompletion($mot){
             $mot = '%'.$mot.'%';
             $req = $this -> _db -> prepare("SELECT name, id FROM product WHERE name LIKE ?");

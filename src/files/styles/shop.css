@@ -104,8 +104,17 @@ h2{
     height: 30px;
     width: 100px;
     border-radius: 3px;
-    background-color: whitesmoke;
     border: 1px solid #a7a7a7;
+}
+.active-mod {
+    background-color : #A7A7A7;
+    color : #F5F5F5;
+    border-color: whitesmoke;
+}
+.unactive-mod {
+    border-color: #a7a7a7;
+    background-color: whitesmoke;
+    color: black;
 }
 
 .selection:hover{
@@ -113,7 +122,23 @@ h2{
     cursor: pointer;
     color: whitesmoke;
 }
-
+#prix{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#bar{
+    position: relative;
+    height: 3px;
+    width: 80%;
+    background-color: #A8B5E1;
+}
+#bar svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
 @keyframes fade {
     from {opacity : 0}
     to {opacity:  1}
