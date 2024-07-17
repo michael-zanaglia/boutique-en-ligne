@@ -72,10 +72,10 @@ h2{
 }
 
 #modal {
-    width: 50vw;
-    height: 50vh;
+    width: 100vw;
+    height: 70vh;
     position: absolute;
-    bottom: 25%;
+    bottom: 0%;
     left: 50%;
     transform: translateX(-50%);
     background-color: #C9D9F0;
@@ -234,7 +234,7 @@ h2{
 
 @keyframes slide {
     from {bottom: -50vh; opacity: 0}
-    to{bottom: 25%; opacity: 1}
+    to{bottom: 0%; opacity: 1}
 }
 
 
