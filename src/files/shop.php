@@ -54,7 +54,7 @@
                 ?>
             </ul>
             
-            <a href="acceuil.php"><img class='logo' src="../asset/logo.png" alt="FOG"></a> 
+            <a href="index.php"><img class='logo' src="../asset/logo.png" alt="FOG"></a> 
             
         </nav>
         <nav>
@@ -116,12 +116,23 @@
                         <?php endforeach;?>
                     </div>
                     <h2>Budget</h2>
-                    <div id='prix'>
-                        <div id='bar'>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="taille24 size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                            </svg>
+                    <div id='range'>
+                        <div class='sliderValue'>
+                            <span><?= round($highestPrice['price'])/2 ?></span>
                         </div>
+                        <div class="field">
+                            <div class="value left">0 $</div>
+                            <input id='inpSlide' type="range" min="0" max="<?= round($highestPrice['price'])?>" step='20'>
+                            <div class="value right"><?= round($highestPrice['price'])?> $</div>
+                        </div>
+                    </div>
+                    <h2>Order Alphabétique</h2>
+                    <div id>
+                        <select id="orderBy">
+                            <option value="" selected>--Select Option--</option>
+                            <option value="asc">↓ A à Z</option>
+                            <option value="desc">↑ Z à A</option>
+                        </select>
                     </div>
                     <div class='selection active-mod'>Tous</div>
                 </div>

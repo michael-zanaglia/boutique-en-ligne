@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if(grabbing){
             e.preventDefault();
             const x = e.clientX
-            caroussel.scrollLeft -= (x-clientX)
+            caroussel.scrollLeft += (x-clientX)
             clientX = x;
         }
     })

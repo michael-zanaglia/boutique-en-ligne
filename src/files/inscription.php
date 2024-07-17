@@ -75,7 +75,7 @@
                 ?>
             </ul>
             
-            <a href="acceuil.php"><img class='logo' src="../asset/logo.png" alt="FOG"></a> 
+            <a href="index.php"><img class='logo' src="../asset/logo.png" alt="FOG"></a> 
             
         </nav>
         <nav>
