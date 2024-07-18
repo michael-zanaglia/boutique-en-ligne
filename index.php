@@ -7,6 +7,7 @@
     $product = new Product();
     $basket = new Basket();
     $myImgs = $product -> getNewItems();
+    $myTop = $product -> getMyTop();
     $myNextImgs = $admin -> getNextImgs();
     $nbArticle = 0;
     //var_dump($myImgs);
@@ -30,8 +31,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="styles/home.css">
+    <link rel="stylesheet" href="src/files/styles/style.css">
+    <link rel="stylesheet" href="src/files/styles/home.css">
     <title>Acceuil</title>
 </head>
 <body>
@@ -40,26 +41,10 @@
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"stroke-width="1.5" stroke="currentColor" class="size-6 burger taille64">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5" />
             </svg>
-            <ul class='menu-burger'>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 leave taille32">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                </svg>
-                <li><a href="src/files/profile.php"><h2>Mon compte</h2><div class='line'></div></a></li>
-                <li><a href="src/files/panier.php"><h2>Mon panier</h2><div class='line'></div></a></li>
-                <li><a href="src/files/bookmark.php"><h2>Vos favoris</h2><div class='line'></div></a></li>
-                <li><a href="src/files/shop.php"><h2>Le shop</h2><div class='line'></div></a></li>
-                <?php 
-                    if(isset($_SESSION['user'])){
-                        echo "<li class='btn-menu'><form method='post'><button class='btn-rouge' name='deco'>Se déconnecter</button></form></li>";
-                    } 
-                ?>
-            </ul>
-            
-            <a href="index.php"><img class='logo' src="../asset/logo.png" alt="FOG"></a> 
-            
+            <a href="index.php"><img class='logo' src="src/asset/logo.png" alt="FOG"></a> 
         </nav>
-        <nav>
-            <ul>
+        <nav class='right-side'>
+            <ul class='t'>
                 <?php if(isset($_SESSION['user']) && $_SESSION['user'] == 'root'){
                     echo '<li><a href="src/files/admin.php">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" class="size-6 taille32">
@@ -86,12 +71,37 @@
                     </a>
                 </li>
             </ul>
+            <ul class='menu-burger'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 leave taille32">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+                <li class='basketLi'><a href="src/files/profile.php"><h2>Mon compte</h2><div class='line'></div></a></li>
+                <li class='userLi'><a href="src/files/panier.php"><h2>Mon panier</h2><div class='line'></div></a></li>
+                <li><a href="src/files/bookmark.php"><h2>Vos favoris</h2><div class='line'></div></a></li>
+                <li><a href="src/files/shop.php"><h2>Le shop</h2><div class='line'></div></a></li>
+                <form class='computerView form-search'>
+                    <div class='container-form'>
+                        <input class='inp' name='search' type="text" autocomplete='off' placeholder="Rechercher un de nos produits.."> 
+                        <button name='btn-search' type='submit'>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="taille24 size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class='autocompletion'></div>
+                </form>  
+                <?php 
+                    if(isset($_SESSION['user'])){
+                        echo "<li class='btn-menu'><form method='post'><button class='btn-rouge' name='deco'>Se déconnecter</button></form></li>";
+                    } 
+                ?>
+            </ul> 
         </nav>
     </header>
     <div class='search-bar'>
-        <form class='form-search'>
+        <form class='mobileView form-search'>
             <div class='container-form'>
-                <input class='inp' name='search' type="text" autocompletion='off' placeholder="Rechercher un de nos produits.."> 
+                <input class='inp' name='search' type="text" autocomplete='off' placeholder="Rechercher un de nos produits.."> 
                 <button name='btn-search' type='submit'>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="taille24 size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
@@ -101,65 +111,80 @@
             <div class='autocompletion'></div>
         </form>   
     </div>
-    <div class='page'>
-        <div>
-            <div class='diapo'>
-                <h1 class="welcome">Welcome <?php echo isset($_SESSION['user'])? $_SESSION['user'] : $user -> getPseudo(); ?></h1>
-            </div>
+    <main class='page'>
+        <div class='child'>
+           
+            <h1 class="welcome">Welcome <?php echo isset($_SESSION['user'])? $_SESSION['user'] : $user -> getPseudo(); ?></h1>
+            <p class='newArticle'>Cliquez pour découvrir nos dernieres figurines !</p>
             <div class='slider'>
-                <?php
-                    foreach ($myImgs as $myImg){
-                        echo "<img class='slider-item' src='data:image;base64,".$myImg['image']."' alt='new-img'>";
-                    }
-                ?>
+                <?php foreach ($myImgs as $myImg):?>
+                    <a href='/boutique-en-ligne/src/files/detail.php?id_product=<?=$myImg['id']?>'><img class='slider-item' src='data:image;base64,<?=$myImg['image']?>' alt='new-img'></a>
+                <?php endforeach;?>
             </div>
         </div>
             
-
-        <div class='side-marge'>
-            <h2>PROCHAINEMENT...</h2>
-        </div>
-
-        <div class='caroussel'>
-            <?php foreach ($myNextImgs as $myNextImg) : ?>
-                <div class="caroussel-item"><img src='data:image;base64,<?=$myNextImg['image']?>' alt='next-img'></div>
-            <?php endforeach;?>
-        </div>  
-
-        <div class='side-marge'>
-            <h2>BEST-SELLER</h2>
-        </div>
-
-        <div class="podium">
-            <div class="pod deux">
-                2
+        <div class='child'>
+            <div class='side-marge'>
+                <h2>PROCHAINEMENT...</h2>
             </div>
-            <div class="pod un">
-                1
-            </div>
-            <div class="pod trois">
-                3
-            </div>
+
+            <div class='caroussel'>
+                <?php foreach ($myNextImgs as $myNextImg) : ?>
+                    <div class="caroussel-item">
+                        <img src='data:image;base64,<?=$myNextImg['image']?>' alt='next-img'>
+                        <div class='over'>
+                            <h1 class='infoCard'><?=$myNextImg['name']?></h1>
+                            <p class='infoCard'><?=$myNextImg['description']?></p>
+                        </div>
+                    </div>
+                <?php endforeach;?>
+            </div>  
         </div>
-    </div>
+        
+        <div class='child third-child'>
+            <div class='side-marge'>
+                <h2>BEST-SELLER</h2>
+            </div>
+
+            <div class="podium">
+                <?php foreach($myTop as $top):?>
+                    <?php if($top['state'] == 2):?>
+                        <div class="srl pod deux">
+                            <a href="/boutique-en-ligne/src/files/detail.php?id_product=<?=$top['id']?>"><img src='data:image;base64,<?=$top['image']?>' alt='top2-img'></a>
+                        </div>
+                    <?php endif;?>
+                    <?php if($top['state'] == 1):?>
+                        <div class="srl pod un">
+                            <a href="/boutique-en-ligne/src/files/detail.php?id_product=<?=$top['id']?>"><img src='data:image;base64,<?=$top['image']?>' alt='top1-img'></a>
+                        </div>
+                    <?php endif;?>
+                    <?php if($top['state'] == 3):?>
+                        <div class="srl pod trois">
+                            <a href="/boutique-en-ligne/src/files/detail.php?id_product=<?=$top['id']?>"><img src='data:image;base64,<?=$top['image']?>' alt='top3-img'></a>
+                        </div>
+                    <?php endif;?>
+                <?php endforeach;?>
+            </div> 
+        </div>
+    </main>
     <footer>
         <div class='footer1'>
             <p>Nous suivre !</p>
             <div>
-                <a href="#"><img class='Xicon' src="../asset/Xicon.png" alt="X-icon"></a>
-                <a href="#"><img class='taille42' src="../asset/Instaicon.png" alt="instagram-icon"></a>
+                <a href="#"><img class='Xicon' src="src/asset/Xicon.png" alt="X-icon"></a>
+                <a href="#"><img class='taille42' src="src/asset/Instaicon.png" alt="instagram-icon"></a>
             </div>
         </div>
         <div class='footer2'>
             <button><svg class="taille32" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" /></svg>Nous contacter</button>
-            <button><img class="taille32" src="../asset/handshake.png" alt="handshake-icon">Nous rejoindre</button>
+            <button><img class="taille32" src="src/asset/handshake.png" alt="handshake-icon">Nous rejoindre</button>
         </div>
         <div class='footer3'>
             <a href="#"><p>Qui sommes-nous ?</p></a>
             <p class='copyright'>© 2024 FOG</p>
         </div>
     </footer>
-    <script type='module' src='js/menu.js'></script>
-    <script src='js/home.js'></script>
+    <script type='module' src='src/files/js/menu.js'></script>
+    <script src='src/files/js/home.js'></script>
 </body>
 </html>

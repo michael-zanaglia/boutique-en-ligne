@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function(){
             pElement.textContent = res["msg"];
             divInscription.appendChild(pElement);
         } else {
-            window.location.href = "redirection.html";
+            window.location.href = "redirection.php";
         }
     })
 

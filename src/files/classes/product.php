@@ -11,6 +11,12 @@
             $this -> _imageClass = new Image();
         }
 
+        public function getMyTop() {
+            $req = $this -> _db -> query("SELECT * FROM product WHERE state IS NOT NULL AND state <> '' ORDER BY state ASC");
+            $result = $req -> fetchAll();
+            return $result;
+        }
+
         public function getHighestPrice(){
             $req = $this -> _db -> query("SELECT price FROM product ORDER BY price DESC LIMIT 1");
             $result = $req -> fetch();
@@ -26,7 +32,7 @@
         }
 
         public function getNewItems(){
-            $req = $this -> _db -> query("SELECT image FROM product ORDER BY id DESC LIMIT 3");
+            $req = $this -> _db -> query("SELECT image, id FROM product ORDER BY id DESC LIMIT 3");
             $result = $req -> fetchAll();
             return $result;
         }

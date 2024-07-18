@@ -9,49 +9,82 @@ h2{
     font-weight: 400;
 }
 
+p {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
 .welcome {
     position: absolute;
     color: white;
     font-size: 3em;
+    z-index: 1;
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+.newArticle {
+    position: absolute;
+    color: white;
+    font-size: 2em;
+    z-index: 1;
+    top: 30%;
+    margin-left: 10px;
 }
 
 .page {
     display: flex;
     flex-direction: column;
     gap: 25px;
-    margin-bottom: 15px;
+    margin-bottom: 36px;
 }
 
+.child {
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    background-color: whitesmoke;
+    overflow: hidden;
+}
+
+.third-child {
+    overflow: visible;
+}
     
-.diapo{
-    background-color: black;
-    opacity: 0.4;
+.slider a {
+    display: block;
+    margin: 0;
+    padding: 0;
     width: 100%;
-    height: 50vh;
-    position: absolute;
-    z-index: 0;
+    height: 100%;
 }
 
 .slider {
     overflow: hidden;
-    width: 100%;
-    height: 50vh;
+    width: 100vw;
+    height: 100vh;
     background-color: #CCCCCC;
     scroll-behavior: smooth;
     display: flex;
 }
 
+
 .slider-item {
-    min-width: 100%;
+    width: 100vw;
+    height: 100vh;
     object-fit: cover;
     cursor: pointer;
+    filter: brightness(0.5);
 }
 
 .caroussel{
     display: flex;
+    flex-direction: column;
     gap: 10px;
-    overflow-x: scroll;
+    overflow-y: scroll;
     width: 100vw;
+    height: 100vh;
     cursor: pointer;
     background: linear-gradient(0deg, rgba(217,240,246,1) 61%, rgba(245,245,245,1) 100%);
 }
@@ -60,54 +93,109 @@ h2{
     user-select: none;
 }
 .caroussel-item {
-    width: 244px;
-    height: 244px;
+    width: 100vw;
+    height: 50vh;
     border-radius: 5px;
     flex-shrink: 0;
     overflow: hidden;
+    position: relative;
+}
+
+.over{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.caroussel-item:hover .over{
+    opacity: 1;
 }
 
 .caroussel-item img {
-    width: 244px;
-    height: 244px;
+    width: 100vw;
+    height: 50vh;
     object-fit: cover;
 }
 
+.infoCard {
+    color: whitesmoke;
+}
 
 .podium {
     display: flex;
-    align-items: flex-end;  
+    flex-direction: column;
+    align-items: flex-start;  
     gap: 10px;
     width: 100%;
-    height: 30vh;
+    height: 100vh;
 }
 
 .pod{
     background-color: #CCCCCC;
-    width: 33%;
+    height: 33%;
     cursor: pointer;
+    overflow: hidden;
+    border: 1px solid rgb(207, 205, 205);
+    border-radius: 5px;
+}
+.srl {
+    max-width: 0;
+    opacity: 0;
+    filter: blur(5px);
+    transition: all 0.4s ease-in;
+}
+
+.pod img{
+    object-fit: cover;
+    object-position: top;
+    width: 100%;
+    height: 400px;
+}
+
+.showing {
+    opacity: 1;
+    max-width: 100%;
+    filter: blur(0);
 }
 
 .un {
-    height: 100%;
+    width: 100%;
 }
 
 .deux {
-    height: 80%;
+    width: 85%;
 }
 
 .trois {
-    height: 60%;
+    width: 65%;
 }
 
+.side-marge {
+    align-self: flex-start;
+}
+@media(prefers-reduced-motion){
+    .srl {
+        transition: none;
+    }
+}
 
 @media only screen and (min-width: 812px){
+
     .diapo, .slider{
         height: 100vh;
     }
     .slider-item {
         width: 100vw;
-        height: 100vh;
+        height: 150vh;
         object-fit: cover;
         object-position: center;
     }
@@ -116,4 +204,64 @@ h2{
         color: white;
         font-size: 8em;
     }
+
+    .caroussel{
+        flex-direction: row;
+        overflow-y: hidden;
+        overflow-x: scroll;
+    }
+
+    .caroussel-item {
+        width: 30vw;
+        height: 100vh;
+    }
+    .caroussel-item img {
+        width: 30vw;
+        height: 100vh;
+        object-fit: cover;
+        pointer-events: none;
+    }
+    .podium{
+        flex-direction: row;
+        align-items: flex-end;
+        width: 95vw;
+    }
+    .pod img{
+            object-fit: cover;
+            object-position: top;
+            width: 100%;
+            height: 100%;
+        }
+    .un {
+        height: 100%;
+        transition-delay: 200ms;
+    }
+    
+    .deux {
+        height: 85%;
+        transition-delay: 400ms;
+    }
+    
+    .trois {
+        height: 65%;
+        transition-delay: 600ms;
+    }
+    .srl{
+        max-width: none;
+        max-height: 0;
+    }
+    .showing {
+        opacity: 1;
+        max-height: 100%;
+        filter: blur(0);
+    }
+
+    .third-child {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+
+    }
+    
 }

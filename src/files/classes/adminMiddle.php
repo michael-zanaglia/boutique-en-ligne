@@ -25,7 +25,7 @@
         }
 
         public function getNextImgs(){
-            $req = $this -> _db -> query("SELECT image FROM middle");
+            $req = $this -> _db -> query("SELECT * FROM middle");
             $result = $req -> fetchAll();
             return $result;
         }

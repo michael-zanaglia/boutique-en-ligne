@@ -13,7 +13,8 @@ document.addEventListener("DOMContentLoaded", function(){
             completionBox.style.display = "block";
             const formdata = new FormData();
             formdata.append("input", e.target.value);
-            let result = await fetchToPhp(formdata, "postRequest/completion.php");
+            let result = await fetchToPhp(formdata, "/boutique-en-ligne/src/files/postRequest/completion.php"); 
+           
             completionBox.innerHTML = '';
             result.forEach(product => {
                 let p = document.createElement("p");
@@ -21,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 p.innerHTML = product['name'];
                 completionBox.appendChild(p);
                 p.addEventListener("click", ()=>{
-                    window.location.href = "detail.php?id_product="+product['id'];
+                    window.location.href = "/boutique-en-ligne/src/files/detail.php?id_product="+product['id'];
                 })
             });
         } else {
