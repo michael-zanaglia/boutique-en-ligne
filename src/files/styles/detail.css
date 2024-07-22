@@ -1,3 +1,27 @@
+p {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+#qte {
+    font-weight: 300;
+}
+#qte span {
+    font-weight: 600;
+}
+#prix {
+    font-weight: 600;
+}
+
+.container-detail {
+    margin-top: 5vh;
+    margin-bottom: 5vw;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .produit {
     overflow: hidden;
     width: 100vw;
@@ -11,6 +35,19 @@ img {
     height: 100%;
 }
 
+.bubble {
+    background-color: #C1D5F0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 15px;
+}
+.info-bubble{
+    width: 90%;
+    padding: 15px;
+    border-bottom: 1px solid #9ebee9;
+}
 #howMany{
     display: flex;
     align-items: center;
@@ -24,7 +61,7 @@ img {
     cursor:pointer;
 }
 
-form {
+#form-add {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -47,4 +84,53 @@ form {
 
 .fav {
     cursor: pointer;
+}
+
+@media only screen and (min-width: 812px){
+    .container-detail {
+        justify-content: space-evenly;
+        align-items: center;
+        flex-direction: row;
+        gap : 0;
+    }
+    .produit {
+        width: 590px;
+        height: 722px;
+        border-radius: 5px;
+        position: relative;
+    }
+    .produit img {
+        object-position: top;
+        transition: transform 0.4s ease;
+    }
+    .produit::after{
+        content: "";
+        position: absolute;
+        width: 75px;
+        height: 75px;
+        border: 1px solid #fff;
+        border-radius: 50%;
+        top: var(--pos-y);
+        left: var(--pos-x);
+        visibility: hidden;
+        transition: transform 0.4s ease;
+    }
+    .produit:hover {
+        cursor: none;
+    }
+
+    .produit:hover::after {
+        transform: scale(2);
+        visibility: visible;
+        background-image: var(--img-src);
+        background-repeat: no-repeat;
+        background-position: var(--x) var(--y);
+    }
+    .bubble {
+        width: 30vw;
+        min-height: 40vh;
+        border-radius: 5px;
+        box-shadow: 12px 12px 5px #9ebee9;
+    }
+
 }

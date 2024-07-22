@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     let nbImg = document.querySelectorAll('.slider-item').length;
     const slider = document.querySelector('.slider');
-    const pods = document.querySelectorAll(".pod");
+    const pods = document.querySelectorAll(".srl");
     const caroussel = document.querySelector('.caroussel');
     let clientX = null;
     let grabbing = null;
@@ -14,14 +14,14 @@ document.addEventListener("DOMContentLoaded", function() {
             slider.scrollLeft = 0;
         } 
     }, 4500);
+
     const observer = new IntersectionObserver((entries)=>{
         entries.forEach((entry) =>{
-            //console.log(entry);
+            console.log(entry);
             if(entry.isIntersecting){
                 entry.target.classList.add('showing');
-            } else {
-                entry.target.classList.remove('showing');
-            }
+                observer.unobserve(entry.target);
+            }  
         });
     });
 

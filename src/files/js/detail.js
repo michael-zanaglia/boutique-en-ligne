@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const minus = document.querySelector(".btn-minus");
     const plus = document.querySelector(".btn-plus");
     const countDisplay = document.querySelector(".count");
+    // Il va me servir a regarder si le user est connecte ou non.
+    const inpBoolean = document.querySelector(".using");
     const fav = document.querySelector(".fav");
     const id = document.querySelector(".id");
     const user = document.querySelector(".user");
@@ -15,34 +17,53 @@ document.addEventListener("DOMContentLoaded", function() {
     let clicked = currentFill === '#FF0000'? true : false;
     //const form = document.getElementById("form-add");
 
+    const myImg = document.querySelector(".produit img").src;
+    const produit = document.querySelector(".produit");
+
+    produit.style.setProperty("--img-src", `url(${myImg})`);
+
+    produit.addEventListener('mousemove', function (e) {
+        const rect = produit.getBoundingClientRect();
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+        const relativePosX = mouseX - rect.left;
+        const relativePosY = mouseY - rect.top;
+        const X = (relativePosX * 100)/rect.width;
+        const Y = (relativePosY * 100)/rect.height;
+        produit.style.setProperty("--pos-x", `${relativePosX}px`);
+        produit.style.setProperty("--pos-y", `${relativePosY}px`);
+        produit.style.setProperty("--x", `${X}%`);
+        produit.style.setProperty("--y", `${Y}%`);
+    });
+
     function updateDisplay() {
         countDisplay.textContent = want;
         minus.disabled = want === 1;
         plus.disabled = want >= stockTotal;
         took.value = want;
     }
-    // Initial state
-    updateDisplay();
+    if(inpBoolean.value) {
+        updateDisplay();
 
-    // Event listener for minus button
-    minus.addEventListener("click", (e) => {
-        e.preventDefault();
-        if (want > 1) {
-            want -= 1;
-            updateDisplay();
-            
-        }
-    });
-
-    // Event listener for plus button
-    plus.addEventListener("click", (e) => {
-        e.preventDefault();
-        if(want < stockTotal){
-            want += 1;
-            updateDisplay(); 
-        }
+        minus.addEventListener("click", (e) => {
+            e.preventDefault();
+            if (want > 1) {
+                want -= 1;
+                updateDisplay();
+                
+            }
+        });
         
-    });
+        plus.addEventListener("click", (e) => {
+            e.preventDefault();
+            if(want < stockTotal){
+                want += 1;
+                updateDisplay(); 
+            }
+            
+        });
+
+    }
 
     fav.addEventListener("click", async ()=>{
         clicked = !clicked;

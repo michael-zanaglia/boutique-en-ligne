@@ -165,7 +165,7 @@ body.no-scroll{
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 9999;
+    z-index: 2;
     overflow: hidden;
     width: 0;
     height: 0;
@@ -224,6 +224,13 @@ h1{
     font-weight: 400;
 }
 
+h2{
+    font-family: "Oswald", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal; 
+    font-weight: 400;
+}
+
 label, button {
     font-family: "Inter", sans-serif;
     font-optical-sizing: auto;
@@ -231,6 +238,7 @@ label, button {
 }
 
 .marge {
+    margin-top: 15%;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -292,6 +300,9 @@ footer p {
     gap: 10px;
     padding: 10px;
 }
+.footer2 p {
+    display: none;
+}
 .footer2 button {
     width: 329px;
     height: 32px;
@@ -304,6 +315,7 @@ footer p {
     gap: 15px;
     cursor: pointer;
     font-size: 1.2rem;
+    margin-top: 10px;
 }
 
 .footer3 {
@@ -379,7 +391,8 @@ footer p {
 
 @media only screen and (min-width: 812px){
     .marge {
-        top: 30%; 
+        top: 20%; 
+        margin-top: 0;
     }
 
     .burger, .leave, .userLi, .basketLi, .search-bar, .mobileView {
@@ -389,19 +402,21 @@ footer p {
     .navigation {
         justify-content: space-between;
     }
+
     .right-side {
         display: flex;
         align-items: center;
         justify-content: flex-end;
-        width: 90vw;
+        width: 100vw;
     }
+
     .menu-burger {
         flex-direction: row;
         position: static;
         overflow: visible;
         align-items: center;
         height: auto;
-        width: 85%;
+        width: 55%;
         background-color: transparent;
     }
 
@@ -424,7 +439,44 @@ footer p {
         top: 66%;
     }
     .t {
-        width: 15%;
+       margin-left: 36px;
+    }
+    footer{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background-color: #D5E3F0; 
+        height: 200px;
+    }
+    .footer1 div{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .footer1, .footer2, .footer3 {
+        background: none;
+        height: 100%;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+    .footer1 div, .footer2 div{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+    .footer2 {
+        padding: 0;
+    }
+    .footer2 button {
+        margin-top: 0;
+    }
+    .footer1 p, .footer2 p {
+        display: block;
+        font-size: 2em;
     }
 }
 

@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const container = document.querySelector(".flex-container");
     const filter = document.getElementById("filtre");
     const modal = document.getElementById("modal-bg");
+    const close = document.querySelector(".close");
     const categories = document.querySelectorAll(".selection");
     let selectedCategories = [];
     let budget = null;
@@ -20,7 +21,20 @@ document.addEventListener("DOMContentLoaded", function(){
                 itemElement.className = "cases";
                 itemElement.innerHTML = `<a href='detail.php?id_product=${element['id']}'><img class='slider-item' src='data:image;base64,${element['image']}' alt='shop-img'></a>`;
                 container.appendChild(itemElement);
-            });  
+            }); 
+            const observer = new IntersectionObserver((entries)=> {
+                entries.forEach((entry) => {
+                    console.log(entry);
+                    if(entry.isIntersecting){
+                        entry.target.classList.add("showing");
+                        observer.unobserve(entry.target);
+                    }
+                })
+            },{ threshold : 0 });
+    
+            document.querySelectorAll(".cases").forEach(element=>{
+                observer.observe(element);
+            })
         } else {
             let itemElement = document.createElement("div");
                 itemElement.innerHTML = "Aucun Match...";
@@ -75,6 +89,11 @@ document.addEventListener("DOMContentLoaded", function(){
             budget = parseInt(inputSlider.value);
             applyFilters(data);
         })
+        inputSlider.addEventListener("touchend", ()=>{
+            budget = parseInt(inputSlider.value);
+            applyFilters(data);
+            slideValue.classList.remove("show");
+        })
 
         selectorElement.addEventListener("change",()=>{
             orderBy = selectorElement.value;
@@ -124,6 +143,10 @@ document.addEventListener("DOMContentLoaded", function(){
     });
 
 
+    close.addEventListener("click", ()=>{
+        modal.style.display = "none";
+        document.querySelector("body").style.overflow = "visible";
+    })
 
     filter.addEventListener("click", ()=>{
         modal.style.display = "block";

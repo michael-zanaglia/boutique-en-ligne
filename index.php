@@ -79,17 +79,20 @@
                 <li class='userLi'><a href="src/files/panier.php"><h2>Mon panier</h2><div class='line'></div></a></li>
                 <li><a href="src/files/bookmark.php"><h2>Vos favoris</h2><div class='line'></div></a></li>
                 <li><a href="src/files/shop.php"><h2>Le shop</h2><div class='line'></div></a></li>
-                <form class='computerView form-search'>
-                    <div class='container-form'>
-                        <input class='inp' name='search' type="text" autocomplete='off' placeholder="Rechercher un de nos produits.."> 
-                        <button name='btn-search' type='submit'>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="taille24 size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                            </svg>
-                        </button>
-                    </div>
-                    <div class='autocompletion'></div>
-                </form>  
+                <div class='computerView'>
+                    <form class='form-search'>
+                        <div class='container-form'>
+                            <input class='inp' name='search' type="text" autocomplete='off' placeholder="Rechercher un de nos produits.."> 
+                            <button name='btn-search' type='submit'>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="taille24 size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class='autocompletion'></div>
+                    </form>   
+                </div>
+                
                 <?php 
                     if(isset($_SESSION['user'])){
                         echo "<li class='btn-menu'><form method='post'><button class='btn-rouge' name='deco'>Se déconnecter</button></form></li>";
@@ -99,7 +102,7 @@
         </nav>
     </header>
     <div class='search-bar'>
-        <form class='mobileView form-search'>
+        <form class='form-search'>
             <div class='container-form'>
                 <input class='inp' name='search' type="text" autocomplete='off' placeholder="Rechercher un de nos produits.."> 
                 <button name='btn-search' type='submit'>
@@ -111,61 +114,62 @@
             <div class='autocompletion'></div>
         </form>   
     </div>
-    <main class='page'>
-        <div class='child'>
-           
-            <h1 class="welcome">Welcome <?php echo isset($_SESSION['user'])? $_SESSION['user'] : $user -> getPseudo(); ?></h1>
-            <p class='newArticle'>Cliquez pour découvrir nos dernieres figurines !</p>
-            <div class='slider'>
-                <?php foreach ($myImgs as $myImg):?>
-                    <a href='/boutique-en-ligne/src/files/detail.php?id_product=<?=$myImg['id']?>'><img class='slider-item' src='data:image;base64,<?=$myImg['image']?>' alt='new-img'></a>
-                <?php endforeach;?>
+    <main>
+        <section class='page'>
+            <div class='child'>
+                <div class="entete"></div>
+                <h1 class="welcome">Welcome <?php echo isset($_SESSION['user'])? $_SESSION['user'] : $user -> getPseudo(); ?></h1>
+                <p class='newArticle'>Cliquez pour découvrir nos dernieres figurines !</p>
+                <div class='slider'>
+                    <?php foreach ($myImgs as $myImg):?>
+                        <a href='/boutique-en-ligne/src/files/detail.php?id_product=<?=$myImg['id']?>'><img class='slider-item' src='data:image;base64,<?=$myImg['image']?>' alt='new-img'></a>
+                    <?php endforeach;?>
+                </div>
             </div>
-        </div>
             
-        <div class='child'>
-            <div class='side-marge'>
-                <h2>PROCHAINEMENT...</h2>
-            </div>
+            <div class='child'>
+                <div class='side-marge entete'>
+                    <h2>PROCHAINEMENT...</h2>
+                </div>
 
-            <div class='caroussel'>
-                <?php foreach ($myNextImgs as $myNextImg) : ?>
-                    <div class="caroussel-item">
-                        <img src='data:image;base64,<?=$myNextImg['image']?>' alt='next-img'>
-                        <div class='over'>
-                            <h1 class='infoCard'><?=$myNextImg['name']?></h1>
-                            <p class='infoCard'><?=$myNextImg['description']?></p>
+                <div class='caroussel'>
+                    <?php foreach ($myNextImgs as $myNextImg) : ?>
+                        <div class="caroussel-item">
+                            <img src='data:image;base64,<?=$myNextImg['image']?>' alt='next-img'>
+                            <div class='over'>
+                                <h1 class='infoCard'><?=$myNextImg['name']?></h1>
+                                <p class='infoCard'><?=$myNextImg['description']?></p>
+                            </div>
                         </div>
-                    </div>
-                <?php endforeach;?>
-            </div>  
-        </div>
-        
-        <div class='child third-child'>
-            <div class='side-marge'>
-                <h2>BEST-SELLER</h2>
+                    <?php endforeach;?>
+                </div>  
             </div>
-
-            <div class="podium">
-                <?php foreach($myTop as $top):?>
-                    <?php if($top['state'] == 2):?>
-                        <div class="srl pod deux">
-                            <a href="/boutique-en-ligne/src/files/detail.php?id_product=<?=$top['id']?>"><img src='data:image;base64,<?=$top['image']?>' alt='top2-img'></a>
-                        </div>
-                    <?php endif;?>
-                    <?php if($top['state'] == 1):?>
-                        <div class="srl pod un">
-                            <a href="/boutique-en-ligne/src/files/detail.php?id_product=<?=$top['id']?>"><img src='data:image;base64,<?=$top['image']?>' alt='top1-img'></a>
-                        </div>
-                    <?php endif;?>
-                    <?php if($top['state'] == 3):?>
-                        <div class="srl pod trois">
-                            <a href="/boutique-en-ligne/src/files/detail.php?id_product=<?=$top['id']?>"><img src='data:image;base64,<?=$top['image']?>' alt='top3-img'></a>
-                        </div>
-                    <?php endif;?>
-                <?php endforeach;?>
-            </div> 
-        </div>
+            
+            <div class='child third-child'>
+                <div class='side-marge entete'>
+                    <h2>BEST-SELLER</h2>
+                </div>
+                <div class="podium">
+                    <?php foreach($myTop as $top):?>
+                        <?php if($top['state'] == 2):?>
+                            <div class="srl pod deux">
+                                <a href="/boutique-en-ligne/src/files/detail.php?id_product=<?=$top['id']?>"><img src='data:image;base64,<?=$top['image']?>' alt='top2-img'></a>
+                            </div>
+                        <?php endif;?>
+                        <?php if($top['state'] == 1):?>
+                            <div class="srl pod un">
+                                <a href="/boutique-en-ligne/src/files/detail.php?id_product=<?=$top['id']?>"><img src='data:image;base64,<?=$top['image']?>' alt='top1-img'></a>
+                            </div>
+                        <?php endif;?>
+                        <?php if($top['state'] == 3):?>
+                            <div class="srl pod trois">
+                                <a href="/boutique-en-ligne/src/files/detail.php?id_product=<?=$top['id']?>"><img src='data:image;base64,<?=$top['image']?>' alt='top3-img'></a>
+                            </div>
+                        <?php endif;?>
+                    <?php endforeach;?>
+                </div> 
+            </div>
+        </section>
     </main>
     <footer>
         <div class='footer1'>
@@ -176,8 +180,11 @@
             </div>
         </div>
         <div class='footer2'>
-            <button><svg class="taille32" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" /></svg>Nous contacter</button>
-            <button><img class="taille32" src="src/asset/handshake.png" alt="handshake-icon">Nous rejoindre</button>
+            <p>Contact</p>
+            <div>
+                <button><svg class="taille32" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" /></svg>Nous contacter</button>
+                <button><img class="taille32" src="src/asset/handshake.png" alt="handshake-icon">Nous rejoindre</button>
+            </div>
         </div>
         <div class='footer3'>
             <a href="#"><p>Qui sommes-nous ?</p></a>

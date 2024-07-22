@@ -32,18 +32,22 @@ p {
     top: 30%;
     margin-left: 10px;
 }
-
+main {
+    overflow: hidden;
+    height: 100vh;
+}
 .page {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-    margin-bottom: 36px;
+    height: 100%;
+    overflow-y: scroll; 
+    scroll-snap-type: y mandatory ;
 }
 
 .child {
-    height: 100vh;
-    position: sticky;
-    top: 0;
+    /*position: sticky;
+    top: 0;*/
+    position: relative;
+    scroll-snap-align: start;
+    height: 100vh; 
     background-color: whitesmoke;
     overflow: hidden;
 }
@@ -67,6 +71,7 @@ p {
     background-color: #CCCCCC;
     scroll-behavior: smooth;
     display: flex;
+    position: relative;
 }
 
 
@@ -136,17 +141,19 @@ p {
     align-items: flex-start;  
     gap: 10px;
     width: 100%;
-    height: 100vh;
+    height: 100%;
 }
 
 .pod{
     background-color: #CCCCCC;
-    height: 33%;
+    height: 25%;
+    width: 100%;
     cursor: pointer;
     overflow: hidden;
     border: 1px solid rgb(207, 205, 205);
     border-radius: 5px;
 }
+
 .srl {
     max-width: 0;
     opacity: 0;
@@ -158,7 +165,7 @@ p {
     object-fit: cover;
     object-position: top;
     width: 100%;
-    height: 400px;
+    height: 100%;
 }
 
 .showing {
@@ -167,21 +174,14 @@ p {
     filter: blur(0);
 }
 
-.un {
+.un .deux .trois{
     width: 100%;
-}
-
-.deux {
-    width: 85%;
-}
-
-.trois {
-    width: 65%;
 }
 
 .side-marge {
     align-self: flex-start;
 }
+
 @media(prefers-reduced-motion){
     .srl {
         transition: none;
@@ -215,45 +215,43 @@ p {
         width: 30vw;
         height: 100vh;
     }
+
     .caroussel-item img {
         width: 30vw;
         height: 100vh;
         object-fit: cover;
         pointer-events: none;
     }
+
     .podium{
         flex-direction: row;
-        align-items: flex-end;
+        align-items: flex-start;
         width: 95vw;
-    }
-    .pod img{
-            object-fit: cover;
-            object-position: top;
-            width: 100%;
-            height: 100%;
-        }
-    .un {
         height: 100%;
+    }
+
+    .pod {
+        height: 100%;
+        width: 33%;
+    }
+    
+    .pod img{
+        object-fit: cover;
+        object-position: top;
+        width: 100%;
+        height: 100%;
+    }
+
+    .un {
         transition-delay: 200ms;
     }
     
     .deux {
-        height: 85%;
         transition-delay: 400ms;
     }
     
     .trois {
-        height: 65%;
         transition-delay: 600ms;
-    }
-    .srl{
-        max-width: none;
-        max-height: 0;
-    }
-    .showing {
-        opacity: 1;
-        max-height: 100%;
-        filter: blur(0);
     }
 
     .third-child {
@@ -261,7 +259,6 @@ p {
         flex-direction: column;
         justify-content: start;
         align-items: center;
-
     }
     
 }

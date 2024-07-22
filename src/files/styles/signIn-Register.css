@@ -104,7 +104,16 @@ a {
 }
 
 @media only screen and (min-width: 812px){
-    .form-inscription, .form-connexion {
-        top: 80%; 
+    .form-connexion {
+        top: 70%; 
+    }
+
+    .form-inscription {
+        top : 33%;
+    }
+
+    .form-connexion, .form-inscription {
+        width: 45vw;
+        padding: 30px;
     }
 }
