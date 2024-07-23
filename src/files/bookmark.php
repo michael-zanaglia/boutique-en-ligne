@@ -122,9 +122,10 @@
                     <?php foreach($myfavoris as $prod):?>
                         <div class='case'>
                             <input name='id' type="hidden" value='<?=$id_user['id']?>'>
-                            <input class='check' type="checkbox" name='prod[]' value='<?=$prod['id']?>' required>
+                            <input class='check' type="checkbox" name='prod[]' value='<?=$prod['id']?>'>
                             <div class='img-cadre'><a href="detail.php?id_product=<?=$prod['id']?>"><img src="<?="data:image;base64,".$prod['image']?>" alt="fav-img"></a></div>
-                            <p class='textP' title='<?=$prod['name']?>'><?=$prod['name']?></p>
+                            <p class='text textP' title='<?=$prod['name']?>'><?=$prod['name']?></p>
+                            <p class='text textDesc' title='<?=$prod['description']?>'>Description : <?=$prod['description']?></p>
                         </div>
                     <?php endforeach;?>
                 </div>
@@ -142,7 +143,7 @@
                 </div>
             </form>
             <?php else:?>
-            <p>Aucun Favoris</p>
+                <h1 id='nothing'>Aucun Favoris</h1>
             <?php endif;?>        
     </main>
     <footer>

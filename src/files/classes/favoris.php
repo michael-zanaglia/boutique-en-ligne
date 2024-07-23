@@ -30,7 +30,7 @@
         }
 
         public function getAllFav($id_user){
-            $req = $this -> _db -> prepare('SELECT product.id, product.name, product.price, product.image FROM favoris INNER JOIN product on product.id = favoris.id_product AND id_user = ?');
+            $req = $this -> _db -> prepare('SELECT product.id, product.name, product.price, product.image, product.description FROM favoris INNER JOIN product on product.id = favoris.id_product AND id_user = ?');
             $req -> execute([$id_user]);
             return $req -> fetchAll();
         }
