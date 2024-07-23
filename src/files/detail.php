@@ -26,12 +26,19 @@
     }
     if(isset($_POST['addToBasket'])){
         if(isset($_SESSION['user'])){
-            $added = $basket -> addToBasketDatabase($id_user['id'], $_POST['took'], $_GET['id_product']);
-            if($added){
-                $staying = $res['stock'] - $_POST['took'];
-                $product -> UpdateStock($staying, $_GET['id_product']);
-                $res = $product -> getInfoById($_GET['id_product']);
-            }  
+            $currentStock = $product -> getStock($_GET['id_product']);
+            if($currentStock >= $_POST['took']){
+                $added = $basket -> addToBasketDatabase($id_user['id'], $_POST['took'], $_GET['id_product']);
+                if($added){
+                    $staying = $res['stock'] - $_POST['took'];
+                    $product -> UpdateStock($staying, $_GET['id_product']);
+                    $res = $product -> getInfoById($_GET['id_product']);
+                }  
+            } else {
+                header("Location: detail.php?id_product=".$_GET['id_product']);
+                exit;
+            }
+            
         } else {
             header("Location: connexion.php");
             exit;
@@ -106,7 +113,7 @@
                     <form class='form-search'>
                         <div class='container-form'>
                             <input class='inp' name='search' type="text" autocomplete='off' placeholder="Rechercher un de nos produits.."> 
-                            <button name='btn-search' type='submit'>
+                            <button name='btn-search' type='button'>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="taille24 size-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                                 </svg>
@@ -127,7 +134,7 @@
         <form class='form-search'>
             <div class='container-form'>
                 <input class='inp' name='search' type="text" autocompletion='off' placeholder="Rechercher un de nos produits.."> 
-                <button name='btn-search' type='submit'>
+                <button name='btn-search' type='button'>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="taille24 size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                     </svg>
@@ -181,7 +188,7 @@
                 </div>
                 <input type="hidden" class='took' name='took'>
                 <input type="hidden" class='using' value='<?php echo isset($_SESSION['user']) ? true : false ?>'>
-                <button class=<?php echo $res["stock"] != 0 ? 'btn-vert' : "btnI";?> name='addToBasket' type='submit' id="adding" <?php echo $res['stock'] === 0 ? 'disabled' : ""; ?>><?php echo isset($_SESSION['user'])? "Ajouter au panier" : "Connectez-vous !"?></button>
+                <button class=<?php echo $product -> getStock($_GET['id_product']) != 0 ? 'btn-vert' : "btnI";?> name='addToBasket' type='submit' id="adding" <?php echo $product -> getStock($_GET['id_product']) === 0 ? 'disabled' : ""; ?>><?php echo isset($_SESSION['user'])? "Ajouter au panier" : "Connectez-vous !"?></button>
             </form>
         </div>
     </div>

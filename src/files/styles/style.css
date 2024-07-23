@@ -2,6 +2,15 @@
     margin: 0;
     box-sizing: border-box;
 }
+#errorPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#errorPage h1 {
+    font-size: 4em;
+}
 body {
     background-color: whitesmoke;
 }

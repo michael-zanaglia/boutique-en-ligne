@@ -9,9 +9,11 @@ document.addEventListener("DOMContentLoaded", function(){
     const forms = document.querySelectorAll(".form-search");
 
     function displaySearch(element){
+        let result = null;
         const elementCompletionBox = element.querySelector(".autocompletion");
         let elementForm = element.querySelector(".form-search");
         let input = element.querySelector(".inp");
+        const btn = element.querySelector("button");
         elementForm.classList.toggle("formShown");
         if(!elementForm.classList.contains("formShown")){
             elementCompletionBox.style.display = 'none';
@@ -25,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 elementCompletionBox.style.display = "block";
                 const formdata = new FormData();
                 formdata.append("input", e.target.value);
-                let result = await fetchToPhp(formdata, "/boutique-en-ligne/src/files/postRequest/completion.php"); 
+                result = await fetchToPhp(formdata, "/boutique-en-ligne/src/files/postRequest/completion.php"); 
                
                 elementCompletionBox.innerHTML = '';
                 result.forEach(product => {
@@ -34,12 +36,23 @@ document.addEventListener("DOMContentLoaded", function(){
                     p.innerHTML = product['name'];
                     elementCompletionBox.appendChild(p);
                     p.addEventListener("click", ()=>{
-                        window.location.href = "/boutique-en-ligne/src/files/detail.php?id_product="+product['id'];
+                        input.value =  p.textContent;
                     })
                 });
             } else {
                 elementCompletionBox.style.display = "none";
             }
+        });
+        btn.addEventListener("click", () => { 
+            if(result !== null && result.length > 0){
+                result.forEach(product => {
+                    if(input.value === product['name']){
+                        window.location.href = "/boutique-en-ligne/src/files/detail.php?id_product="+product['id'];
+                    }
+                })  
+            } else {
+                window.location.href = "/boutique-en-ligne/src/files/404.php";
+            } 
         })
         elementForm.addEventListener("click", (e) => {
             e.stopPropagation(); // Empêche la propagation du clic jusqu'à .search-bar

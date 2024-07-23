@@ -53,7 +53,7 @@ main {
 }
 
 .third-child {
-    overflow: visible;
+    overflow: hidden;
 }
     
 .slider a {
@@ -73,7 +73,6 @@ main {
     display: flex;
     position: relative;
 }
-
 
 .slider-item {
     width: 100vw;
@@ -106,6 +105,14 @@ main {
     position: relative;
 }
 
+.caroussel-end {
+    width: 10vw;
+    height: 25vh;
+    border-radius: 5px;
+    flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+}
 .over{
     display: flex;
     flex-direction: column;

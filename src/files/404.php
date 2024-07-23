@@ -1,26 +1,22 @@
 <?php
     require "classes/user.php";
+    require "classes/product.php";
     require "classes/basket.php";
-    require "classes/order.php";
+    require "classes/adminMiddle.php";
+    $product = new Product(); 
     $basket = new Basket();
-    $order = new Order();
-    session_start();
-    if(isset($_SESSION['user'])){
+    $nbArticle = 0;
+    if (isset($_SESSION['user'])){
         $user = new User($_SESSION['user']);
         $id_user = $user -> getId();
         $user -> logoutUser();
+        $mybasket = $basket -> getNumberArticlebyId($id_user['id']);
+        foreach($mybasket as $nb){
+            $nbArticle += $nb['quantite'];
+        }
     } else {
-        header("Location: connexion.php"); 
-        exit;
+        $user = new User();
     }
-    $mybasket = $basket -> getNumberArticlebyId($id_user['id']);
-    $nbArticle = 0;
-    $total = 0;
-    foreach($mybasket as $nb){
-        $nbArticle += $nb['quantite'];
-    }
-    $myArticles = $basket -> getInformationFromMyBasket($id_user['id']);
-    //var_dump($myArticles);
 ?>
 
 <!DOCTYPE html>
@@ -30,8 +26,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="styles/panier.css">
-    <title>Mon Panier</title>
+    <title>Admin</title>
 </head>
 <body>
     <header class='navigation'>
@@ -101,7 +96,7 @@
     <div class='search-bar'>
         <form class='form-search'>
             <div class='container-form'>
-                <input class='inp' name='search' type="text" autocompletion='off' placeholder="Rechercher un de nos produits.."> 
+                <input class='inp' name='search' type="text" autocomplete='off' placeholder="Rechercher un de nos produits.."> 
                 <button name='btn-search' type='button'>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="taille24 size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
@@ -111,97 +106,12 @@
             <div class='autocompletion'></div>
         </form>   
     </div>
-    <main>
-       <div class='margeAd'><div></div><h1>Votre commande</h1></div> 
-            <?php if ($myArticles) : ?>
-                <form id='panierF' method="post">
-                    <div class='mybasket-article'>
-                        <?php foreach($myArticles as $article) :?>
-                            <div class='case'>
-                                <input class='user-name' type="hidden" value='<?=$id_user['id']?>'>
-                                <input class='id-product' name='id[]' type="hidden" value='<?=$article['id_product']?>'>
-                                <div class='img-case'><a href="detail.php?id_product=<?=$article['id_product']?>"><img src='data:image;base64,<?=$article['image']?>' alt='article-img'></a></div>
-                                <div class='info-case'>
-                                    <h4 title='<?=$article['name']?>'><?=$article['name']?></h4>
-                                    <p>Prix à l'unité <?=$article['price']?> $</p>
-                                    <?php $total += ($article['price']*$article['quantite']); ?>
-                                </div>
-                                <div class='quantite'>
-                                    <p>Qte.</p>
-                                    <input name='quant[]' type="hidden" value='<?=$article['quantite']?>'>
-                                    <select name="nbr-article">
-                                        <?php for($i = 1; $i<=($article['stock']+$article['quantite']); $i++) :?>
-                                            <?php if($i === $article['quantite']) :?>
-                                                <option class='options' value="<?=$article['quantite']?>" selected><?=$article['quantite']?></option>
-                                            <?php else :?>
-                                                <option class='options' value="<?=$i?>"><?=$i?></option>
-                                            <?php endif ;?>
-                                        <?php endfor ;?>
-                                    </select>
-                                </div>
-                                <button type='button' class='delete-case'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 close taille32">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                                    </svg>
-                                </button>
-                            </div>
-                        <?php endforeach;?>
-                    </div>
-                    <p id='total'>Total: <?= $total ?> $</p>
-                    <input type="hidden" name='total' value='<?=$total?>'>
-                    <button type='submit' name='sub' class='btn-vert'>Valider</button>
-                </form>
-                <?php else : ?>
-                    <div id='vide'>
-                        <img class="taille200" src="../asset/nothing.png" alt="logo-img">
-                        <h1>Panier Vide</h1>
-                    </div>        
-            <?php endif ?>
-        </div>
-    </main>
-    <footer>
-        <div class='footer1'>
-            <p>Nous suivre !</p>
-            <div>
-                <a href="#"><img class='Xicon' src="../asset/Xicon.png" alt="X-icon"></a>
-                <a href="#"><img class='taille42' src="../asset/Instaicon.png" alt="instagram-icon"></a>
-            </div>
-        </div>
-        <div class='footer2'>
-            <p>Contact</p>
-            <div>
-                <button><svg class="taille32" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" /></svg>Nous contacter</button>
-                <button><img class="taille32" src="../asset/handshake.png" alt="handshake-icon">Nous rejoindre</button>
-            </div>
-        </div>
-        <div class='footer3'>
-            <a href="#"><p>Qui sommes-nous ?</p></a>
-            <p class='copyright'>© 2024 FOG</p>
-        </div>
-    </footer>
+<body>
+    <div id="errorPage">
+        <img src="../asset/logoError.png" alt="error-img">
+        <h1>ERROR</h1> 
+    </div>
+    
     <script type='module' src='js/menu.js'></script>
-    <script type='module' src='js/panier.js'></script>
 </body>
 </html>
-
-<?php 
-//    if($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['sub'])){
-//        $time = time();
-//        $alpbt = range("A", "Z");
-//        $str = "";
-//        foreach($alpbt as $char){
-//            $str .= $char;
-//        }
-//        $str = str_shuffle($str);
-//        $order_reference = $id_user['id'].$time.substr($str, 0, 5);
-//        foreach($myArticles as $article){
-//            $quantite = $article['quantite'];
-//            $id_product = $article['id_product'];
-//            $response = $order -> addToOrderDatabase($order_reference, date('Y-m-d'), $quantite, $id_product, $id_user['id'], $total);
-//        }
-//        if($response){
-//            $basket -> deleteMyBasket($id_user['id']);
-//        }
-//        
-//    }
-?>

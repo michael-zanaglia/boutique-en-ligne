@@ -66,6 +66,13 @@ th, td {
     outline: none;
 }
 
+.shortInp {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    max-width: 60px;
+}
+
 #add-table{
     margin-bottom: 50px;
 }

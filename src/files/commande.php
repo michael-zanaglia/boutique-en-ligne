@@ -11,7 +11,7 @@
         $id_user = $user -> getId();
         $user -> logoutUser();
     } else {
-        header("Location: connexion.php"); 
+        header("Location: 404.php"); 
         exit;
     }
     $mybasket = $basket -> getNumberArticlebyId($id_user['id']);
@@ -42,25 +42,10 @@
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"stroke-width="1.5" stroke="currentColor" class="size-6 burger taille64">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5" />
             </svg>
-            <ul class='menu-burger'>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 leave taille32">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                </svg>
-                <li><a href="profile.php"><h2>Mon compte</h2><div class='line'></div></a></li>
-                <li><a href="panier.php"><h2>Mon panier</h2><div class='line'></div></a></li>
-                <li><a href="bookmark.php"><h2>Vos favoris</h2><div class='line'></div></a></li>
-                <li><a href="shop.php"><h2>Le shop</h2><div class='line'></div></a></li>
-                <?php 
-                    if(isset($_SESSION['user'])){
-                        echo "<li class='btn-menu'><form method='post'><button class='btn-rouge' name='deco'>Se déconnecter</button></form></li>";
-                    } 
-                ?>
-            </ul>
-
-            <a href="../../index.php"><img class='logo' src="../asset/logo.png" alt="FOG"></a> 
+            <a href="/boutique-en-ligne/index.php"><img class='logo' src="../asset/logo.png" alt="FOG"></a> 
         </nav>
-        <nav>
-            <ul>
+        <nav class='right-side'>
+            <ul class='t'>
                 <?php if(isset($_SESSION['user']) && $_SESSION['user'] == 'root'){
                     echo '<li><a href="admin.php">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" class="size-6 taille32">
@@ -78,7 +63,7 @@
                 </li>
                 <li>
                     <a href="panier.php" class='basket-container'>
-                        <?php if($nbArticle !== 0) :?>
+                        <?php if($nbArticle !== 0 && isset($_SESSION['user'])) :?>
                             <div class='notif-basket'><p><?=$nbArticle?></p></div>
                         <?php endif;?>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000000" class="size-6 taille32">
@@ -87,13 +72,36 @@
                     </a>
                 </li>
             </ul>
+            <ul class='menu-burger'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 leave taille32">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+                <li class='basketLi'><a href="profile.php"><h2>Mon compte</h2><div class='line'></div></a></li>
+                <li class='userLi'><a href="panier.php"><h2>Mon panier</h2><div class='line'></div></a></li>
+                <li><a href="bookmark.php"><h2>Vos favoris</h2><div class='line'></div></a></li>
+                <li><a href="shop.php"><h2>Le shop</h2><div class='line'></div></a></li>
+                <div class='computerView'>
+                    <form class='form-search'>
+                        <div class='container-form'>
+                            <input class='inp' name='search' type="text" autocomplete='off' placeholder="Rechercher un de nos produits.."> 
+                            <button name='btn-search' type='button'>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="taille24 size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class='autocompletion'></div>
+                    </form>   
+                </div>
+                
+            </ul> 
         </nav>
     </header>
     <div class='search-bar'>
         <form class='form-search'>
             <div class='container-form'>
                 <input class='inp' name='search' type="text" autocompletion='off' placeholder="Rechercher un de nos produits.."> 
-                <button name='btn-search' type='submit'>
+                <button name='btn-search' type='button'>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="taille24 size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                     </svg>
@@ -142,8 +150,11 @@
             </div>
         </div>
         <div class='footer2'>
-            <button><svg class="taille32" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" /></svg>Nous contacter</button>
-            <button><img class="taille32" src="../asset/handshake.png" alt="handshake-icon">Nous rejoindre</button>
+            <p>Contact</p>
+            <div>
+                <button><svg class="taille32" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" /></svg>Nous contacter</button>
+                <button><img class="taille32" src="../asset/handshake.png" alt="handshake-icon">Nous rejoindre</button>
+            </div>
         </div>
         <div class='footer3'>
             <a href="#"><p>Qui sommes-nous ?</p></a>

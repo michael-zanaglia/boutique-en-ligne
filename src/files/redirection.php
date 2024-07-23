@@ -9,7 +9,7 @@
         $id_user = $user -> getId();
         $user -> logoutUser();
     } else {
-        header("Location: connexion.php"); 
+        header("Location: 404.php"); 
         exit;
     }
     $mybasket = $basket -> getNumberArticlebyId($id_user['id']);
