@@ -176,6 +176,7 @@
         </div>
         <div class='footer3'>
             <a href="#"><p>Qui sommes-nous ?</p></a>
+            <p>*Les images ne m'appartiennent pas. </p>
             <p class='copyright'>© 2024 FOG</p>
         </div>
     </footer>

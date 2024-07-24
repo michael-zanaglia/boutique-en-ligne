@@ -25,7 +25,7 @@ body.no-scroll{
     height: 90px;
     max-width: 100vw;
     background-color:#C9D9F0;
-    justify-content: center;
+    /*justify-content: center;*/
     position: relative;
 }
 
@@ -106,7 +106,7 @@ body.no-scroll{
     cursor: pointer;
     content: "";
     position: absolute;
-    z-index: 2;
+    z-index: 1;
     top: 99%;
     left: 50%;
     transform: translateX(-50%);
@@ -191,7 +191,6 @@ body.no-scroll{
 .t {
     display: flex;
     justify-content: space-between;
-    gap: 5px;
 }
 .menu-burger a {
     text-decoration: none;
@@ -264,7 +263,7 @@ label, button {
 
 .btn-vert {
     margin-top: 1px;
-    background-color: #6DF9AD;
+    background-color: #18DD72;
     color: whitesmoke;
     height: 50px;
     width: 200px;
@@ -349,6 +348,7 @@ footer p {
 
 .copyright{
     text-align: end;
+    margin-right: 5px;
 }
 
 .margeAd {
@@ -486,6 +486,9 @@ footer p {
     .footer1 p, .footer2 p {
         display: block;
         font-size: 2em;
+    }
+    .copyright{
+        margin-right: 0;
     }
 }
 

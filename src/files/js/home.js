@@ -1,11 +1,23 @@
 document.addEventListener("DOMContentLoaded", function() {
+    const firstChild = document.querySelector(".first");
     let nbImg = document.querySelectorAll('.slider-item').length;
     const slider = document.querySelector('.slider');
     const pods = document.querySelectorAll(".srl");
     const caroussel = document.querySelector('.caroussel');
     let clientX = null;
     let grabbing = null;
+
+    function goodByeGif(){
+        const gif = document.createElement('img');
+        gif.src = '/boutique-en-ligne/src/asset/click.gif';
+        firstChild.appendChild(gif);
+        gif.classList.add("gif");
+        setTimeout(()=>{
+            gif.classList.add("disapearGif");
+        },3000);
+    }
     
+    goodByeGif();
 
     const idInterval = setInterval(() => {
         let width = slider.offsetWidth;
@@ -24,6 +36,8 @@ document.addEventListener("DOMContentLoaded", function() {
             }  
         });
     });
+
+    
 
     pods.forEach((pod)=>observer.observe(pod));
 

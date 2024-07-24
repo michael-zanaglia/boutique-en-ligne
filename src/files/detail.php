@@ -174,21 +174,21 @@
                     <label id="no-stock" for="addToBasket">Notre article revient tres prochainement !</label>
                 <?php endif; ?>
                 <div id='howMany'>
-                    <button type='button' class=btn-minus <?php echo isset($_SESSION['user'])? "" : "disabled"?> >
+                    <button type='button' class="btn-minus" <?php echo isset($_SESSION['user'])? "" : "disabled"?> >
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 minus taille32">
                             <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm3 10.5a.75.75 0 0 0 0-1.5H9a.75.75 0 0 0 0 1.5h6Z" clip-rule="evenodd" />
                         </svg>             
                     </button>
                     <span class="count">1</span>
-                    <button type='button' class=btn-plus <?php echo isset($_SESSION['user'])? "" : "disabled"?> >
+                    <button type='button' class="btn-plus" <?php echo isset($_SESSION['user'])? "" : "disabled"?> >
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 plus taille32">
                             <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z" clip-rule="evenodd" />
                         </svg>
                     </button>   
                 </div>
                 <input type="hidden" class='took' name='took'>
-                <input type="hidden" class='using' value='<?php echo isset($_SESSION['user']) ? true : false ?>'>
-                <button class=<?php echo $product -> getStock($_GET['id_product']) != 0 ? 'btn-vert' : "btnI";?> name='addToBasket' type='submit' id="adding" <?php echo $product -> getStock($_GET['id_product']) === 0 ? 'disabled' : ""; ?>><?php echo isset($_SESSION['user'])? "Ajouter au panier" : "Connectez-vous !"?></button>
+                <input type="hidden" class='using' value='<?php echo isset($_SESSION['user']) ? true : "f" ?>'>
+                <button class=<?php echo $product -> getStock($_GET['id_product']) === 0 && isset($_SESSION['user']) ? "btnI" : 'btn-vert';?> name='addToBasket' type='submit' id="adding" <?php echo $product -> getStock($_GET['id_product']) === 0 && isset($_SESSION['user']) ? 'disabled' : ""; ?>><?php echo isset($_SESSION['user'])? "Ajouter au panier" : "Connectez-vous !"?></button>
             </form>
         </div>
     </div>
@@ -209,6 +209,7 @@
         </div>
         <div class='footer3'>
             <a href="#"><p>Qui sommes-nous ?</p></a>
+            <p>*Les images ne m'appartiennent pas. </p>
             <p class='copyright'>© 2024 FOG</p>
         </div>
     </footer>

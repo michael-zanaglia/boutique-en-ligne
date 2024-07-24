@@ -116,7 +116,7 @@
     </div>
     <main>
         <section class='page'>
-            <div class='child'>
+            <div class='first child'>
                 <div class="entete"></div>
                 <h1 class="welcome">Welcome <?php echo isset($_SESSION['user'])? $_SESSION['user'] : $user -> getPseudo(); ?></h1>
                 <p class='newArticle'>Cliquez pour découvrir nos dernieres figurines !</p>
@@ -154,44 +154,48 @@
                     <?php foreach($myTop as $top):?>
                         <?php if($top['state'] == 2):?>
                             <div class="srl pod deux">
-                                <a href="/boutique-en-ligne/src/files/detail.php?id_product=<?=$top['id']?>"><img src='data:image;base64,<?=$top['image']?>' alt='top2-img'></a>
+                                <img class='top' src="src/asset/no2.png" alt="">
+                                <a href="/boutique-en-ligne/src/files/detail.php?id_product=<?=$top['id']?>"><img class='topImg' src='data:image;base64,<?=$top['image']?>' alt='top2-img'></a>
                             </div>
                         <?php endif;?>
                         <?php if($top['state'] == 1):?>
                             <div class="srl pod un">
-                                <a href="/boutique-en-ligne/src/files/detail.php?id_product=<?=$top['id']?>"><img src='data:image;base64,<?=$top['image']?>' alt='top1-img'></a>
+                                <img class='top' src="src/asset/no1.png" alt="">
+                                <a href="/boutique-en-ligne/src/files/detail.php?id_product=<?=$top['id']?>"><img class='topImg' src='data:image;base64,<?=$top['image']?>' alt='top1-img'></a>
                             </div>
                         <?php endif;?>
                         <?php if($top['state'] == 3):?>
                             <div class="srl pod trois">
-                                <a href="/boutique-en-ligne/src/files/detail.php?id_product=<?=$top['id']?>"><img src='data:image;base64,<?=$top['image']?>' alt='top3-img'></a>
+                                <img class='top' src="src/asset/no3.png" alt="">
+                                <a href="/boutique-en-ligne/src/files/detail.php?id_product=<?=$top['id']?>"><img class='topImg' src='data:image;base64,<?=$top['image']?>' alt='top3-img'></a>
                             </div>
                         <?php endif;?>
                     <?php endforeach;?>
                 </div> 
             </div>
+            <footer>
+                <div class='footer1'>
+                    <p>Nous suivre !</p>
+                    <div>
+                        <a href="#"><img class='Xicon' src="src/asset/Xicon.png" alt="X-icon"></a>
+                        <a href="#"><img class='taille42' src="src/asset/Instaicon.png" alt="instagram-icon"></a>
+                    </div>
+                </div>
+                <div class='footer2'>
+                    <p>Contact</p>
+                    <div>
+                        <button><svg class="taille32" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" /></svg>Nous contacter</button>
+                        <button><img class="taille32" src="src/asset/handshake.png" alt="handshake-icon">Nous rejoindre</button>
+                    </div>
+                </div>
+                <div class='footer3'>
+                    <a href="#"><p>Qui sommes-nous ?</p></a>
+                    <p>*Les images ne m'appartiennent pas. </p>
+                    <p class='copyright'>© 2024 FOG</p>
+                </div>
+        </footer>
         </section>
     </main>
-    <footer>
-        <div class='footer1'>
-            <p>Nous suivre !</p>
-            <div>
-                <a href="#"><img class='Xicon' src="src/asset/Xicon.png" alt="X-icon"></a>
-                <a href="#"><img class='taille42' src="src/asset/Instaicon.png" alt="instagram-icon"></a>
-            </div>
-        </div>
-        <div class='footer2'>
-            <p>Contact</p>
-            <div>
-                <button><svg class="taille32" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" /></svg>Nous contacter</button>
-                <button><img class="taille32" src="src/asset/handshake.png" alt="handshake-icon">Nous rejoindre</button>
-            </div>
-        </div>
-        <div class='footer3'>
-            <a href="#"><p>Qui sommes-nous ?</p></a>
-            <p class='copyright'>© 2024 FOG</p>
-        </div>
-    </footer>
     <script type='module' src='src/files/js/menu.js'></script>
     <script src='src/files/js/home.js'></script>
 </body>

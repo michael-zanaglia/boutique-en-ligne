@@ -13,8 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let took = document.querySelector(".took");
     //const add = document.getElementById("adding");
     let want = 1;
-    let currentFill = fav.getAttribute("fill");
-    let clicked = currentFill === '#FF0000'? true : false;
+    
     //const form = document.getElementById("form-add");
 
     const myImg = document.querySelector(".produit img").src;
@@ -42,43 +41,62 @@ document.addEventListener("DOMContentLoaded", function() {
         plus.disabled = want >= stockTotal;
         took.value = want;
     }
-    if(inpBoolean.value) {
-        updateDisplay();
 
-        minus.addEventListener("click", (e) => {
-            e.preventDefault();
+    console.log(minus, plus)
+    
+    if(inpBoolean.value !='f') {
+       updateDisplay(); 
+    }
+    
+
+    minus.addEventListener("click", (e) => {
+        console.log("dd")
+        e.preventDefault();
+        if(inpBoolean.value !='f') {
             if (want > 1) {
                 want -= 1;
                 updateDisplay();
                 
             }
-        });
-        
-        plus.addEventListener("click", (e) => {
-            e.preventDefault();
+        } else {
+            alert("Connectez-vous avant de modifier la quantité.");
+        }
+    });
+    
+    plus.addEventListener("click", (e) => {
+        e.preventDefault();
+        if(inpBoolean.value !='f') {
             if(want < stockTotal){
                 want += 1;
                 updateDisplay(); 
             }
-            
-        });
+        } else {
+            alert("Connectez-vous avant de modifier la quantité.");
+        }
+        
+    });
+
+    
+
+    if(fav){
+        let currentFill = fav.getAttribute("fill");
+        let clicked = currentFill === '#FF0000'? true : false;
+        fav.addEventListener("click", async ()=>{
+            clicked = !clicked;
+            if(clicked){
+                fav.setAttribute("fill", "#FF0000"); 
+            } else {
+                fav.setAttribute("fill", "none"); 
+            }
+            const formdata = new FormData();
+            formdata.append("id_product",  id.value);
+            formdata.append("id_user", user.value);
+            formdata.append("clicked", clicked);
+            let response = fetchToPhp(formdata,"postRequest/addFav.php");
+        })
 
     }
 
-    fav.addEventListener("click", async ()=>{
-        clicked = !clicked;
-
-        if(clicked){
-            fav.setAttribute("fill", "#FF0000"); 
-        } else {
-            fav.setAttribute("fill", "none"); 
-        }
-        const formdata = new FormData();
-        formdata.append("id_product",  id.value);
-        formdata.append("id_user", user.value);
-        formdata.append("clicked", clicked);
-        let response = fetchToPhp(formdata,"postRequest/addFav.php");
-    })
 
    //add.addEventListener("click", (e) =>{
    //    e.preventDefault();

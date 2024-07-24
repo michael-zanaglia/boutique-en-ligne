@@ -52,8 +52,12 @@ main {
     overflow: hidden;
 }
 
-.third-child {
-    overflow: hidden;
+footer {
+    scroll-snap-align: start;
+}
+
+.first {
+    height: 88vh;
 }
     
 .slider a {
@@ -153,14 +157,21 @@ main {
 
 .pod{
     background-color: #CCCCCC;
-    height: 25%;
+    height: 30%;
     width: 100%;
     cursor: pointer;
     overflow: hidden;
     border: 1px solid rgb(207, 205, 205);
     border-radius: 5px;
+    position: relative;
 }
-
+.top {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 128px;
+    height: 128px;
+}
 .srl {
     max-width: 0;
     opacity: 0;
@@ -168,7 +179,7 @@ main {
     transition: all 0.4s ease-in;
 }
 
-.pod img{
+.pod .topImg{
     object-fit: cover;
     object-position: top;
     width: 100%;
@@ -187,6 +198,19 @@ main {
 
 .side-marge {
     align-self: flex-start;
+}
+
+.gif {
+    position: absolute;
+    width: 128px;
+    height: 128px;
+    top: 70%;
+    right: 0;
+    transition: opacity 0.4s ease;
+}
+
+.disapearGif {
+    opacity: 0;
 }
 
 @media(prefers-reduced-motion){
@@ -242,7 +266,7 @@ main {
         width: 33%;
     }
     
-    .pod img{
+    .pod .topImg{
         object-fit: cover;
         object-position: top;
         width: 100%;
@@ -266,6 +290,12 @@ main {
         flex-direction: column;
         justify-content: start;
         align-items: center;
+    }
+
+    .gif {
+        width: 255px;
+        height: 255px;
+        top: 65%;
     }
     
 }

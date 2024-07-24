@@ -13,8 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const formData = new FormData(form); 
         const res = await fetchToPhp(formData, "postRequest/conn.php");
         if(res['success']){
-            console.log("go to home page");
-            window.location.href='/boutique-en-ligne/index.php';
+            window.location.href='/boutique-en-ligne/src/files/shop.php';
         } else {
             pElement.innerText="Connexion Impossible. :(";
             divConnexion.appendChild(pElement);
